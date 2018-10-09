@@ -6,5 +6,6 @@ const notesController = require("../controllers/notesController.js")
 module.exports = function(app){
 
   app.get('/', packersController.index);
-
+  app.get('/login', packersController.showLogin);
+  app.post('/login', packersController.register);
 }

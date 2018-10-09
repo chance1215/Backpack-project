@@ -18,14 +18,21 @@
   </head>
   <body>
 
-    <h1>PAGE TITLE</h1>
+    <h1>Login/Register</h1>
 
     <a class="btn btn-dark" href="/">Back</a>
-    <a class="btn btn-dark" href="/login">Login/Register</a>
 
-    <form class="ourForm" action="/login" method="post">
-      <input class="btn btn-success" type="submit" value="{EXAMPLE}">
+    <form class="login" action="/login" method="post">
+      <input type="text" name="email" placeholder="email">
+      <input type="text" name="password" placeholder="password">
+      <input class="btn btn-success" type="submit" value="login">
     </form>
-
+    <form class="register" action="/login" method="post">
+      <input type="text" name="packerName" placeholder="name">
+      <input type="text" name="email" placeholder="email">
+      <input type="text" name="password" placeholder="password">
+      <input type="text" name="passwordConfirmation" placeholder="confirm password">
+      <input class="btn btn-success" type="submit" value="register">
+    </form>
   </body>
 </html>
