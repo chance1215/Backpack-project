@@ -1,24 +1,33 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Backpack</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- BOOSTRAP CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<head>
+  <meta charset="utf-8">
+  <title>Backpack</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="/assets/style.css">
+  <!-- BOOSTRAP CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
 
-    <!-- BOOTSTRAP SCRIPT -->
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous" defer></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous" defer></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js" integrity="sha384-pjaaA8dDz/5BgdFUPX6M/9SUZv4d12SUPF0axWc+VRZkx5xU3daN+lYb49+Ax+Tl" crossorigin="anonymous" defer></script>
-  </head>
-  <body>
+  <!-- CSS -->
+  <link rel="stylesheet" type="text/css" href="/assets/style.css">
 
-    <h1>{TRIP}</h1>
+  <!-- BOOTSTRAP SCRIPT -->
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous" defer></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous" defer></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js" integrity="sha384-pjaaA8dDz/5BgdFUPX6M/9SUZv4d12SUPF0axWc+VRZkx5xU3daN+lYb49+Ax+Tl"
+    crossorigin="anonymous" defer></script>
+</head>
+
+<body>
+  <div class="container">
+
+    <h1>
+      <%= trip.tripName %>
+    </h1>
 
     <a class="btn btn-dark" href="/welcome">Back</a>
     <a class="btn btn-dark" href="/logout">logout</a>
@@ -26,24 +35,82 @@
     <!-- Navigation between DETAILS, BACKPACK< CAMPGROUND -->
     <ul class="nav nav-pills nav-fill">
       <li class="nav-item">
-        <a class="nav-link active" href="/trip/details/1">Details</a>
+        <a class="nav-link active" href="/trip/details/<%= trip.id %>">Details</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/trip/backpack/1">Backpack</a>
+        <a class="nav-link" href="/trip/backpack/<%= trip.id %>">Backpack</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/trip/campground/1">Campground</a>
+        <a class="nav-link" href="/trip/campground/<%= trip.id %>">Campground</a>
       </li>
     </ul>
-
-    <a class="btn btn-warning" href="/editTrip/1">Edit Trip</a>
+    <% if (admin.packer_id === user.id) { %>
+    <a class="btn btn-warning" href="/editTrip/<%= trip.id %>">Edit Trip</a>
+    <% } %>
 
     <br><br>
-    <h3>Template for a form:</h3>
-    <form class="ourForm" action="#" method="post">
-      <input class="btn btn-success" type="submit" value="{EXAMPLE}">
-    </form>
+    <ul>
+      <% packers.forEach(packer => { %>
+      <li>
+        <%= packer.packerName %>
+      </li>
+      <% }) %>
+    </ul>
+
+    <br>
+
+    <h1>
+      Date:
+      <%= moment(trip.date).format('dddd MMM Do, YYYY') %>
+    </h1>
+    <h1>
+      Location:
+      <%= trip.location %>
+    </h1>
+    <p>
+      <%= trip.description %>
+    </p>
+    <!-- <h3>Template for a form:</h3>
+  <form class="ourForm" action="#" method="post">
+    <input class="btn btn-success" type="submit" value="{EXAMPLE}">
+  </form> -->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card" style="overflow-y:auto; width: 100%; height: 10em; ">
+          <div class="card-body">
+            <ul>
+              <% notes.forEach(note => { %>
+              <li>
+                <p>
+                  <%= note.packerName %> said:</p>
+                <p>
+                  <%= note.content %>
+                  <br>
+                  <small>
+                    <%= moment(note.created_at).format('dddd MMM Do, YYYY') %></small>
+                </p>
+
+              </li>
+              <hr>
+              <% }) %>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <form action="/notes/create/<%= trip.id %>/<%= user.id %>" method="post">
+          <div class="form-group">
+            <textarea class="form-control" name="content" rows="4"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary mb-2 float-right">Add Note</button>
+        </form>
+      </div>
+    </div>
 
 
-  </body>
+
+  </div>
+</body>
+
 </html>
