@@ -9,6 +9,7 @@ module.exports = function(app){
   app.get('/login', packersController.showLogin);
   app.post('/login',packersController.login)
   app.post('/register', packersController.register);
+
 app.use(authenticateUser);
 
   app.get('/welcome',packersController.welcome);
