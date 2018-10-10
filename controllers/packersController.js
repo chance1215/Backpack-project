@@ -51,12 +51,23 @@ module.exports = {
       }
     },
     welcome: (req,res)=>{
-      res.render("welcome")
+      knex('packersTable')
+      .where('id',req.session.packer_id)
+      .then((packerResults)=>{
+        knex.select('tripsTable.*', 'packer_tripTable.role', 'packersTable.id AS admin_id', 'packersTable.packerName')
+        .from('tripsTable')
+        .where('packer_id', req.session.packer_id)
+        .leftJoin('packer_tripTable', 'tripsTable.id', 'packer_tripTable.trip_id')
+        .leftJoin('packersTable', 'packersTable.id', 'packer_tripTable.packer_id')
+        .then((tripResults)=>{
+          res.render("welcome",{packer:packerResults[0], trip:tripResults})
+        })
+      })
     },
     logout: (req, res)=>{
     req.session.destroy(()=>{
       res.redirect('/');
     });
   },
-  
+
   };
