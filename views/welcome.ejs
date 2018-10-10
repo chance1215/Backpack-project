@@ -43,6 +43,7 @@
            <p><%= trip[i].tripName %></p>
          </div>
          <hr>
+         <br>
          <div>
            <p><%= trip[i].date %></p>
          </div>
@@ -53,19 +54,16 @@
 
          <div>
            <p><%= trip[i].description %></p>
+           <br>
          </div>
-
-         
-
-
-
-
+         <div class="view-btn">
                <% if(trip[i].role === "admin"){ %>
                  <a href="/trip/details/<%=trip[i].id%>"<input class="btn btn-success" type="submit" value="view/edit">View/Edit</a>
 
                  <%} else {%>
                    <a href="/trip/details/<%=trip[i].id%>"<input class="btn btn-success" type="submit" value="view">View</a>
                 <%}%>
+              </div>
        <%}%>
      </div>
   </body>

@@ -26,5 +26,11 @@ body{
 }
 
 .upcomingTrips {
-  border:2px;
+  border:3px;
+  border-style: solid;
+}
+
+.btn-success {
+  color:green;
+  padding: 5px;
 }
