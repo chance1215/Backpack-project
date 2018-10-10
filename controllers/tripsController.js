@@ -1,4 +1,10 @@
 const knex = require("../db/knex.js");
+const moment = require('moment');
+
+//When creating a new trip use moment to format the date.
+//Example when creating a new date...
+// let formattedDate = moment(req.body.date).format('dddd MMM Do');
+// .insert({ date: formattedDate })
 
 module.exports = {
 

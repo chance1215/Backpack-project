@@ -1,3 +1,3 @@
-## Node/Knex MVC Template
+## Backpack Project
 
-To start using this simply clone it and do npm install.
+Description here...
