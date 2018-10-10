@@ -18,14 +18,23 @@
   </head>
   <body>
 
-    <h1>Welcome {packer}</h1>
+    <h1>{TRIP}</h1>
 
-    <a class="btn btn-dark" href="/">Back</a>
+    <a class="btn btn-dark" href="/welcome">Back</a>
     <a class="btn btn-dark" href="/logout">logout</a>
-    <a class="btn btn-warning" href="/newTrip">Create New Trip</a>
 
-    <!-- This button found inside each trip display -->
-    <a class="btn btn-warning" href="/trip/details/1">Example View Trip</a>
+    <!-- Navigation between DETAILS, BACKPACK< CAMPGROUND -->
+    <ul class="nav nav-pills nav-fill">
+      <li class="nav-item">
+        <a class="nav-link" href="/trip/details/1">Details</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active" href="/trip/backpack/1">Backpack</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/trip/campground/1">Campground</a>
+      </li>
+    </ul>
 
     <form class="ourForm" action="#" method="post">
       <input class="btn btn-success" type="submit" value="{EXAMPLE}">

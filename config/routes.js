@@ -10,7 +10,18 @@ module.exports = function(app){
   app.post('/login',packersController.login)
   app.post('/register', packersController.register);
 app.use(authenticateUser);
+
   app.get('/welcome',packersController.welcome);
+  app.get('/newTrip',tripsController.newTrip);
+  app.get('/editTrip/:id',tripsController.editTrip);
+
+  app.get('/trip/details/:id', tripsController.details)
+  app.get('/trip/backpack/:id', tripsController.backpack)
+  app.get('/trip/campground/:id', tripsController.campground)
+
+
+
+
   app.get('/logout',packersController.logout);
 }
 function authenticateUser(req, res, next){
