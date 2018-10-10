@@ -20,6 +20,7 @@ module.exports = function(app) {
   app.get("/trip/campground/:id", tripsController.campground);
 
   app.post("/notes/create/:trip_id/:user_id", notesController.create);
+  app.post("/sendInvite/:trip_id", tripsController.sendInvite);
 
   app.get("/logout", packersController.logout);
 };

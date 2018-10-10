@@ -45,10 +45,39 @@
       </li>
     </ul>
     <% if (admin.packer_id === user.id) { %>
-    <a class="btn btn-warning" href="/editTrip/<%= trip.id %>">Edit Trip</a>
+    <div class="row">
+      <div class="col-md-12">
+        <a class="btn btn-secondary" href="/editTrip/<%= trip.id %>" style="width: 100%;">Edit Trip</a>
+      </div>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+      <div class="col-md-9">
+        <form method="POST" action="/sendInvite/<%= trip.id %>">
+          <div class="form-group">
+            <input type="email" class="form-control" name="email" aria-describedby="email" placeholder="Enter email">
+            <small class="form-text text-muted">Invite an existing Member to a trip!</small>
+          </div>
+          <input type="hidden" name="date" value="<%= moment(trip.date).format('dddd MMM Do, YYYY') %>">
+          <input type="hidden" name="name" value="<%= trip.tripName %>">
+          <input type="hidden" name="location" value="<%= trip.location %>">
+          <input type="hidden" name="description" value="<%= trip.description %>">
+          <input type="hidden" name="packerName" value="<%= user.packerName %>">
+
+
+
+      </div>
+      <div class="col-md-3"><button type="submit" class="btn btn-primary float-right" style="width: 100%;">Send Invite
+          Email</button>
+      </div>
+      </form>
+    </div>
     <% } %>
 
-    <br><br>
+
+
+    <br>
     <ul class="list-group">
       <% packers.forEach(packer => { %>
       <% if (admin.packer_id === packer.id) { %>
@@ -57,7 +86,8 @@
       </li>
       <% } else { %>
       <li class="list-group-item">
-        <%= packer.packerName %>
+        <%= packer.packerName %><span class="float-right">
+          <%= packer.email %></span>
       </li>
       <% } %>
 
@@ -132,7 +162,7 @@
           <div class="form-group">
             <textarea class="form-control" name="content" rows="4"></textarea>
           </div>
-          <button type="submit" class="btn btn-primary mb-2 float-right">Add Note</button>
+          <button type="submit" class="btn btn-primary mb-2 float-right" style="width: 100%;">Add Note</button>
         </form>
       </div>
     </div>
