@@ -49,11 +49,18 @@
     <% } %>
 
     <br><br>
-    <ul>
+    <ul class="list-group">
       <% packers.forEach(packer => { %>
-      <li>
+      <% if (admin.packer_id === packer.id) { %>
+      <li class="list-group-item active">
+        <%= packer.packerName %> <span class="float-right">Trip Creator</span>
+      </li>
+      <% } else { %>
+      <li class="list-group-item">
         <%= packer.packerName %>
       </li>
+      <% } %>
+
       <% }) %>
     </ul>
 
@@ -129,6 +136,7 @@
         </form>
       </div>
     </div>
+    <br>
 
 
 
