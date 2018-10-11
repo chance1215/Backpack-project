@@ -24,7 +24,7 @@ module.exports = {
       startDate: req.body.startDate,
       endDate: req.body.endDate,
     }).then((results)=>{
-    res.redirect('/details/:id');
+    res.redirect('/trip/details/:id');
     })
   },
 

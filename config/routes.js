@@ -14,7 +14,7 @@ module.exports = function(app){
 
   app.get('/welcome',packersController.welcome);
   app.get('/newTrip',tripsController.newTrip);
-  app.post('/newTrip',tripsController.createTrip);
+  app.post('/newTrip/:id',tripsController.createTrip);
   app.get('/editTrip/:id',tripsController.editTrip);
   app.post('/updateTrip/:id',tripsController.updateTrip);
   app.get('/remove/:packer_id/:trip_id',tripsController.remove);
