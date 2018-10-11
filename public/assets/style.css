@@ -2,6 +2,9 @@ body{
   margin: 1em;
 }
 
+.splash{
+  background-color: blue;
+}
 .ourForm {
   background-color: green;
 }
@@ -48,8 +51,6 @@ body{
   float: right;
 }
 
-.upcomingTrips {
 
-}
 a.btn {border-radius: .25rem; border: 1px solid transparent; padding: .5rem 1rem; color: #fff; }
 a.btn:hover { border-radius: .25rem; }

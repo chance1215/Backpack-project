@@ -16,19 +16,20 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous" defer></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js" integrity="sha384-pjaaA8dDz/5BgdFUPX6M/9SUZv4d12SUPF0axWc+VRZkx5xU3daN+lYb49+Ax+Tl" crossorigin="anonymous" defer></script>
   </head>
-  <body>
-<div class="splash">
+  <body class="splash">
+        <div class="row">
+            <div class="col-lg">
+              <div class="w-100"></div>
+          <h1>BACKPACK</h1>
 
-    <h1>BACKPACK</h1>
-
-    <!-- CHECKS IF USER IS LOGGED IN OR OUT AND DISPLAYS THE APPROPRIATE BUTTONS -->
-    <% if(status === 'loggedOut'){ %>
-      <a class="btn btn-dark float-right" href="/login">Login/Register</a>
-    <% } else { %>
-      <a class="btn btn-dark" href="/welcome">View Your Trips</a>
-      <a class="btn btn-dark float-right" href="/logout">Logout</a>
-    <% } %>
-  </div>
-
+          <!-- CHECKS IF USER IS LOGGED IN OR OUT AND DISPLAYS THE APPROPRIATE BUTTONS -->
+          <% if(status === 'loggedOut'){ %>
+            <a class="btn btn-dark float-right" href="/login">Login/Register</a>
+          <% } else { %>
+            <a class="btn btn-dark" href="/welcome">View Your Trips</a>
+            <a class="btn btn-dark float-right" href="/logout">Logout</a>
+          <% } %>
+        </div>
+        </div>
   </body>
 </html>
