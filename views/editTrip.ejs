@@ -20,7 +20,7 @@
 
     <h1>Edit Trip</h1>
 
-    <a class="btn btn-dark" href="/trip/details/1">Back</a>
+    <a class="btn btn-dark" href="/trip/details/<%= tripsResults[0].id %>">Back</a>
     <a class="btn btn-dark float-right" href="/logout">Logout</a>
 
     <br><br>
@@ -49,14 +49,21 @@
     </div>
     <% }) %>
 
+    <hr>
     <h5>Attending:</h5>
     <% packer_tripResults.forEach(pack_trip => { %>
-      <div class="col-md-3">
-        <h5><%= pack_trip.packerName %></h5>
-        <form action="/remove/<%= pack_trip.packer_id %>/<%= tripsResults[0].id %>" method="get">
-          <button type="submit" class="btn btn-primary" style="margin:20px auto;">Remove</button>
-        </form>
-      </div>
+      <% if(pack_trip.packer_id !== userID){ %>
+        <div class="col-md-3">
+          <h5><%= pack_trip.packerName %></h5>
+          <form action="/remove/<%= pack_trip.packer_id %>/<%= tripsResults[0].id %>" method="get">
+            <button type="submit" class="btn btn-primary" style="margin:20px auto;">Remove</button>
+          </form>
+        </div>
+      <% } else { %>
+        <div class="col-md-3">
+          <h5><%= pack_trip.packerName %> is the trip host.</h5><br>
+        </div>
+      <% } %>
     <% }) %>
 
   </body>

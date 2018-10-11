@@ -59,14 +59,12 @@
             <input type="email" class="form-control" name="email" aria-describedby="email" placeholder="Enter email">
             <small class="form-text text-muted">Invite an existing Member to a trip!</small>
           </div>
-          <input type="hidden" name="date" value="<%= moment(trip.date).format('dddd MMM Do, YYYY') %>">
+          <input type="hidden" name="startDate" value="<%= moment(trip.startDate).format('dddd MMM Do, YYYY') %>">
+          <input type="hidden" name="endDate" value="<%= moment(trip.endDate).format('dddd MMM Do, YYYY') %>">
           <input type="hidden" name="name" value="<%= trip.tripName %>">
           <input type="hidden" name="location" value="<%= trip.location %>">
           <input type="hidden" name="description" value="<%= trip.description %>">
           <input type="hidden" name="packerName" value="<%= user.packerName %>">
-
-
-
       </div>
       <div class="col-md-3"><button type="submit" class="btn btn-primary float-right" style="width: 100%;">Send Invite
           Email</button>
@@ -96,13 +94,15 @@
 
     <br>
     <div class="row">
-      <div class="col-md-6">
-        <h1>
-          Date:
-          <%= moment(trip.date).format('dddd MMM Do, YYYY') %>
-        </h1>
+      <div class="col-md-5">
+        <h4>
+          Start:
+          <%= moment(trip.startDate).format('dddd MMM Do, YYYY') %> <br>
+          End:
+          <%= moment(trip.endDate).format('dddd MMM Do, YYYY') %>
+        </h4>
       </div>
-      <div class="col md-1">
+      <div class="col md-2">
         <h1>|</h1>
       </div>
       <div class="col-md-5">
