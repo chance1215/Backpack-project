@@ -9,11 +9,15 @@ module.exports = function(app){
   app.get('/login', packersController.showLogin);
   app.post('/login',packersController.login)
   app.post('/register', packersController.register);
-app.use(authenticateUser);
+
+  app.use(authenticateUser);
 
   app.get('/welcome',packersController.welcome);
   app.get('/newTrip',tripsController.newTrip);
+  app.post('/newTrip',tripsController.createTrip);
   app.get('/editTrip/:id',tripsController.editTrip);
+  app.post('/updateTrip/:id',tripsController.updateTrip);
+  app.get('/remove/:packer_id/:trip_id',tripsController.remove);
 
   app.get('/trip/details/:id', tripsController.details)
   app.get('/trip/backpack/:id', tripsController.backpack)
