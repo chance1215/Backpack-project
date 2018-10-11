@@ -2,6 +2,13 @@ body{
   margin: 1em;
 }
 
+.splash{
+  background:url(/assets/backpack-web.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 20%;
+  background-position: center;
+}
 .ourForm {
   background-color: green;
 }
@@ -48,8 +55,6 @@ body{
   float: right;
 }
 
-.upcomingTrips {
 
-}
 a.btn {border-radius: .25rem; border: 1px solid transparent; padding: .5rem 1rem; color: #fff; }
 a.btn:hover { border-radius: .25rem; }
