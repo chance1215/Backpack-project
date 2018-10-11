@@ -11,7 +11,9 @@ exports.up = function(knex, Promise) {
         .references('id')
         .inTable('tripsTable')
         .onDelete('CASCADE');
+        
     table.string('role');
+
     table.boolean('confirmed');
    table.timestamps(true, true);
  })

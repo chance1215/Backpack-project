@@ -19,8 +19,6 @@ exports.seed = function(knex, Promise) {
         {packer_id:2, trip_id:3, role:'packer', confirmed:true},
         {packer_id:3, trip_id:3, role:'admin', confirmed:true},
         {packer_id:4, trip_id:3, role:'packer', confirmed:true}
-
-
       ]);
     });
 };

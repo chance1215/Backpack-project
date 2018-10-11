@@ -36,8 +36,12 @@ module.exports = {
       knex('packersTable')
       .where('id', req.session.packer_id)
       .then((packerResult) => {
-        knex('tripsTable')
-        .where('id', req.params.id)
+        knex.select('tripsTable.tripName', 'packersTable.packerName', 'packer_tripTable.role')
+        .from('tripsTable')
+        .where('tripsTable.id', req.params.id)
+        .andWhere('packer_tripTable.packer_id', req.session.packer_id)
+        .join('packer_tripTable', 'tripsTable.id', 'packer_tripTable.trip_id')
+        .join('packersTable', 'packersTable.id', 'packer_tripTable.packer_id')
         .then((tripResult) => {
           res.render('backpack', { gear: gearResults, packer: packerResult[0], trip: tripResult[0] });
         })

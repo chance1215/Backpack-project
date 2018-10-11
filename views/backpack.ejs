@@ -17,8 +17,10 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js" integrity="sha384-pjaaA8dDz/5BgdFUPX6M/9SUZv4d12SUPF0axWc+VRZkx5xU3daN+lYb49+Ax+Tl" crossorigin="anonymous" defer></script>
   </head>
   <body>
+  
+    <%= JSON.stringify(trip) %>
 
-    <h1>Trp</h1>
+    <h1><%= trip.tripName.toUpperCase() %></h1>
 
     <a class="btn btn-dark" href="/welcome">Back</a>
     <a class="btn btn-dark" href="/logout">logout</a>
@@ -39,12 +41,15 @@
     <h2><%= packer.packerName %>'s Backpack</h2>
     <hr>
 
+    <!-- ADD AN ITEM -->
+    <% if(trip.role === 'admin'){ %>
     <div class="add-ind-item-container">
         <form class="add-ind-item" action="#" method="post">
             <input type="text" name="gearName" placeholder="Add a new item.">
             <input class="btn btn-success" type="submit" value="Add+">
           </form>
     </div>
+    <% } %>
 
 
       <% for(let i = 0; i < gear.length; i++) { %>
@@ -53,15 +58,9 @@
           <p>Trip: <%= gear[i].trip_id %></p>
           <p>Packer: <%= gear[i].packer_id %></p>
           <p>Type: <%= gear[i].type %></p>
+          <a class="btn btn-danger" href="/deleteItem/<%= gear[i].id %>">Remove <%= gear[i].gearName.toLowerCase() %> from list.</a>
         </div>
       <% } %>
-
-
-    <br><br>
-    <h3>Template for a form:</h3>
-    <form class="ourForm" action="#" method="post">
-      <input class="btn btn-success" type="submit" value="{EXAMPLE}">
-    </form>
 
 
   </body>
