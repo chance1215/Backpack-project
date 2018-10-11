@@ -1,9 +1,13 @@
 //Update the name of the controller below and rename the file.
-const packersController = require("../controllers/packersController.js")
-const tripsController = require("../controllers/tripsController.js")
-const gearController = require("../controllers/gearController.js")
-const notesController = require("../controllers/notesController.js")
-module.exports = function(app){
+const packersController = require("../controllers/packersController.js");
+const tripsController = require("../controllers/tripsController.js");
+const gearController = require("../controllers/gearController.js");
+const notesController = require("../controllers/notesController.js");
+module.exports = function(app) {
+  app.get("/", packersController.index);
+  app.get("/login", packersController.showLogin);
+  app.post("/login", packersController.login);
+  app.post("/register", packersController.register);
 
   app.get('/', packersController.index);
   app.get('/login', packersController.showLogin);
@@ -28,6 +32,8 @@ module.exports = function(app){
   //DETAILS PAGE:
   app.get('/trip/details/:id', tripsController.details);
 
+  app.post("/notes/create/:trip_id/:user_id", notesController.create);
+  app.post("/sendInvite/:trip_id", tripsController.sendInvite);
 
   //BACKPACK PAGE:
   app.get('/trip/backpack/:id', gearController.backpack);
@@ -55,8 +61,8 @@ module.exports = function(app){
 function authenticateUser(req, res, next){
   if(!req.session.packer_id){
     console.log("Sorry, you don't have access to that page. Please login.");
-    res.redirect('/login');
-  }else{
+    res.redirect("/login");
+  } else {
     next();
   }
 }
