@@ -16,26 +16,30 @@ module.exports = {
     res.render("newTrip");
   },
 
-  createTrip:(req, res) => {
-    knex('tripsTable').insert({
-      tripName: req.body.tripName,
-      location: req.body.location,
-      description: req.body.description,
-      startDate: req.body.startDate,
-      endDate: req.body.endDate
-    }, '*')
-    .then((newresults)=>{
-      knex('packer_tripTable')
-      .insert({
-        packer_id: req.session.packer_id,
-        trip_id: newresults[0].id,
-        role: 'admin',
-        confirmed: true
-      })
-      .then(()=>{
-        res.redirect(`/trip/details/${newresults[0].id}`);
-      })
-    })
+  createTrip: (req, res) => {
+    knex("tripsTable")
+      .insert(
+        {
+          tripName: req.body.tripName,
+          location: req.body.location,
+          description: req.body.description,
+          startDate: req.body.startDate,
+          endDate: req.body.endDate
+        },
+        "*"
+      )
+      .then(newresults => {
+        knex("packer_tripTable")
+          .insert({
+            packer_id: req.session.packer_id,
+            trip_id: newresults[0].id,
+            role: "admin",
+            confirmed: true
+          })
+          .then(() => {
+            res.redirect(`/trip/details/${newresults[0].id}`);
+          });
+      });
   },
 
   editTrip: (req, res) => {
@@ -160,9 +164,12 @@ module.exports = {
           const output = `
     <p>You have been Invited to a trip!</p>
     <h3>${req.body.name}</h3>
-    <h5>${req.body.location}</h5>
-    <h5>${req.body.date}</h5>
+     <hr>
+    <h5>LOCATION: ${req.body.location}</h5>
+    <h5>START DATE:${req.body.startDate}</h5>
+    <h5>END DATE:${req.body.endDate}</h5>
     <p>${req.body.description}</p>
+   
 
     Click <a href="http://localhost:8000/accepted_invite/${user[0].id}/${
             req.params.trip_id
