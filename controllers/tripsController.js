@@ -153,7 +153,7 @@ module.exports = {
   sendInvite: (req, res) => {
     console.log(req.body);
 
-    const output = `
+    const output = ` 
     <p>You have been Invited to a trip!</p>
     <h3>${req.body.name}</h3>
     <h5>${req.body.location}</h5>
