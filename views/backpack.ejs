@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Backpack</title>
+    <title><%= packer.packerName %>'s Backpack</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- BOOSTRAP CSS -->
@@ -17,35 +17,34 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js" integrity="sha384-pjaaA8dDz/5BgdFUPX6M/9SUZv4d12SUPF0axWc+VRZkx5xU3daN+lYb49+Ax+Tl" crossorigin="anonymous" defer></script>
   </head>
   <body>
-  
-    <%= JSON.stringify(trip) %>
 
     <h1><%= trip.tripName.toUpperCase() %></h1>
 
     <a class="btn btn-dark" href="/welcome">Back</a>
-    <a class="btn btn-dark" href="/logout">logout</a>
+    <a class="btn btn-dark float-right" href="/logout">Logout</a>
 
     <!-- Navigation between DETAILS, BACKPACK< CAMPGROUND -->
     <ul class="nav nav-pills nav-fill">
       <li class="nav-item">
-        <a class="nav-link" href="/trip/details/1">Details</a>
+        <a class="nav-link" href="/trip/details/<%= trip.id %>">Details</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" href="/trip/backpack/1">Backpack</a>
+        <a class="nav-link active" href="/trip/backpack/<%= trip.id %>">Backpack</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/trip/campground/1">Campground</a>
+        <a class="nav-link" href="/trip/campground/<%= trip.id %>">Campground</a>
       </li>
     </ul>
 
     <h2><%= packer.packerName %>'s Backpack</h2>
+    <p>These are items that each person on the trip needs to bring.</p>
     <hr>
 
-    <!-- ADD AN ITEM -->
+    <!-- ADMIN ONLY - Add Item -->
     <% if(trip.role === 'admin'){ %>
-    <div class="add-ind-item-container">
-        <form class="add-ind-item" action="#" method="post">
-            <input type="text" name="gearName" placeholder="Add a new item.">
+    <div class="add-item-container">
+        <form class="add-item" action="/addItem/backpack/<%= trip.id %>" method="post">
+            <input type="text" name="gearName" placeholder="Add an individual item.">
             <input class="btn btn-success" type="submit" value="Add+">
           </form>
     </div>
@@ -55,10 +54,20 @@
       <% for(let i = 0; i < gear.length; i++) { %>
         <div class="individual-item-display">
           <h4><%= gear[i].gearName.toUpperCase() %></h4>
-          <p>Trip: <%= gear[i].trip_id %></p>
+          <p>Trip: <%= trip.id %></p>
           <p>Packer: <%= gear[i].packer_id %></p>
           <p>Type: <%= gear[i].type %></p>
-          <a class="btn btn-danger" href="/deleteItem/<%= gear[i].id %>">Remove <%= gear[i].gearName.toLowerCase() %> from list.</a>
+          <p class="<%= gear[i].status %>">Status: <%= gear[i].status %></p><br><br>
+          <% if(gear[i].status === 'unpacked'){ %>
+            <a class="btn btn-dark btn-sm" href="/packIndividual/<%= trip.id %>/<%= gear[i].id %>/<%= gear[i].packer_id %>">Click to pack.</a>
+          <% } else { %>
+            <a class="btn btn-dark btn-sm" href="/unpackIndividual/<%= trip.id %>/<%= gear[i].id %>/<%= gear[i].packer_id %>">Click to unpack.</a>
+          <% } %>
+
+          <!-- ADMIN ONLY - Delete Item -->
+          <% if(trip.role === 'admin'){ %>
+            <a class="btn btn-danger" href="/deleteIndividualItem/<%= trip.id %>/<%= gear[i].id %>">Remove <%= gear[i].gearName.toLowerCase() %> from list.</a>
+          <% } %>
         </div>
       <% } %>
 

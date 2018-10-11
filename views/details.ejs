@@ -1,49 +1,176 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Backpack</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- BOOSTRAP CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<head>
+  <meta charset="utf-8">
+  <title>Backpack</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="/assets/style.css">
+  <!-- BOOSTRAP CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
 
-    <!-- BOOTSTRAP SCRIPT -->
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous" defer></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous" defer></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js" integrity="sha384-pjaaA8dDz/5BgdFUPX6M/9SUZv4d12SUPF0axWc+VRZkx5xU3daN+lYb49+Ax+Tl" crossorigin="anonymous" defer></script>
-  </head>
-  <body>
+  <!-- CSS -->
+  <link rel="stylesheet" type="text/css" href="/assets/style.css">
 
-    <h1>{TRIP}</h1>
+  <!-- BOOTSTRAP SCRIPT -->
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous" defer></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous" defer></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js" integrity="sha384-pjaaA8dDz/5BgdFUPX6M/9SUZv4d12SUPF0axWc+VRZkx5xU3daN+lYb49+Ax+Tl"
+    crossorigin="anonymous" defer></script>
+</head>
+
+<body>
+  <div class="container">
+
+    <h1>
+      <%= trip.tripName %>
+    </h1>
 
     <a class="btn btn-dark" href="/welcome">Back</a>
-    <a class="btn btn-dark" href="/logout">logout</a>
+    <a class="btn btn-dark float-right" href="/logout">Logout</a>
 
     <!-- Navigation between DETAILS, BACKPACK< CAMPGROUND -->
     <ul class="nav nav-pills nav-fill">
       <li class="nav-item">
-        <a class="nav-link active" href="/trip/details/1">Details</a>
+        <a class="nav-link active" href="/trip/details/<%= trip.id %>">Details</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/trip/backpack/1">Backpack</a>
+        <a class="nav-link" href="/trip/backpack/<%= trip.id %>">Backpack</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/trip/campground/1">Campground</a>
+        <a class="nav-link" href="/trip/campground/<%= trip.id %>">Campground</a>
       </li>
     </ul>
+    <% if (admin.packer_id === user.id) { %>
+    <div class="row">
+      <div class="col-md-12">
+        <a class="btn btn-secondary" href="/editTrip/<%= trip.id %>" style="width: 100%;">Edit Trip</a>
+      </div>
+    </div>
+    <br>
+    <br>
+    <div class="row">
+      <div class="col-md-9">
+        <form method="POST" action="/sendInvite/<%= trip.id %>">
+          <div class="form-group">
+            <input type="email" class="form-control" name="email" aria-describedby="email" placeholder="Enter email">
+            <small class="form-text text-muted">Invite an existing Member to a trip!</small>
+          </div>
+          <input type="hidden" name="date" value="<%= moment(trip.date).format('dddd MMM Do, YYYY') %>">
+          <input type="hidden" name="name" value="<%= trip.tripName %>">
+          <input type="hidden" name="location" value="<%= trip.location %>">
+          <input type="hidden" name="description" value="<%= trip.description %>">
+          <input type="hidden" name="packerName" value="<%= user.packerName %>">
 
-    <a class="btn btn-warning" href="/editTrip/1">Edit Trip</a>
-
-    <br><br>
-    <h3>Template for a form:</h3>
-    <form class="ourForm" action="#" method="post">
-      <input class="btn btn-success" type="submit" value="{EXAMPLE}">
-    </form>
 
 
-  </body>
+      </div>
+      <div class="col-md-3"><button type="submit" class="btn btn-primary float-right" style="width: 100%;">Send Invite
+          Email</button>
+      </div>
+      </form>
+    </div>
+    <% } %>
+
+
+
+    <br>
+    <ul class="list-group">
+      <% packers.forEach(packer => { %>
+      <% if (admin.packer_id === packer.id) { %>
+      <li class="list-group-item active">
+        <%= packer.packerName %> <span class="float-right">Trip Creator</span>
+      </li>
+      <% } else { %>
+      <li class="list-group-item">
+        <%= packer.packerName %><span class="float-right">
+          <%= packer.email %></span>
+      </li>
+      <% } %>
+
+      <% }) %>
+    </ul>
+
+    <br>
+    <div class="row">
+      <div class="col-md-6">
+        <h1>
+          Date:
+          <%= moment(trip.date).format('dddd MMM Do, YYYY') %>
+        </h1>
+      </div>
+      <div class="col md-1">
+        <h1>|</h1>
+      </div>
+      <div class="col-md-5">
+        <h1>
+          Location:
+          <%= trip.location %>
+        </h1>
+      </div>
+    </div>
+    <br>
+
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card">
+          <div class="card-header">
+            Trip Description
+          </div>
+          <div class="card-body">
+            <p>
+              <%= trip.description %>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+
+    <!-- <h3>Template for a form:</h3>
+  <form class="ourForm" action="#" method="post">
+    <input class="btn btn-success" type="submit" value="{EXAMPLE}">
+  </form> -->
+    <div class="row">
+      <div class="col-md-6">
+        <div class="card" style="overflow-y:auto; width: 100%; height: 10em; ">
+          <div class="card-body">
+            <ul>
+              <% notes.forEach(note => { %>
+              <li>
+                <%= note.packerName %>
+                said:
+                <%= note.content %>
+                <br>
+                <small>
+                  <%= moment(note.created_at).format('dddd MMM Do, YYYY') %></small>
+                </p>
+
+              </li>
+              <hr>
+              <% }) %>
+
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <form action="/notes/create/<%= trip.id %>/<%= user.id %>" method="post">
+          <div class="form-group">
+            <textarea class="form-control" name="content" rows="4"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary mb-2 float-right" style="width: 100%;">Add Note</button>
+        </form>
+      </div>
+    </div>
+    <br>
+
+
+
+  </div>
+</body>
+
 </html>

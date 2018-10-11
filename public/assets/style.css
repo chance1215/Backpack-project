@@ -6,14 +6,13 @@ body{
   background-color: green;
 }
 
-.add-ind-item-container {
+.add-item-container {
   display: inline;
   display: flex;
   justify-content: center;
 }
-.add-ind-item {
+.add-item {
   text-align: center;
-  background-color: green;
   width: 20em;
   padding: 5px;
 }
@@ -23,6 +22,30 @@ body{
   border-style: solid;
   padding: 1em;
   margin: 1em;
+}
+
+.community-item-display{
+  border: 1px;
+  border-style: solid;
+  padding: 1em;
+  margin: 1em;
+}
+
+.packed{
+  background-color: #008E00;
+  display: inline;
+  padding: 0.5em;
+  border-radius: 10px;
+}
+.unpacked{
+  background-color: #ED0038;
+  display: inline;
+  padding: 0.5em;
+  border-radius: 10px;
+}
+
+.float-right{
+  float: right;
 }
 
 .upcomingTrips {
