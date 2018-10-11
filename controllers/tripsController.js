@@ -60,10 +60,33 @@ module.exports = {
   },
 
   remove: (req, res) => {
-    knex('packer_tripTable').delete()
-    .where('packer_id', req.params.packer_id).andWhere('trip_id', req.params.trip_id)
-    .then(() => {
-      res.redirect(`/editTrip/${req.params.trip_id}`);
+    knex('packer_tripTable')
+    .delete()
+    .where('packer_id', req.params.packer_id)
+    .andWhere('trip_id', req.params.trip_id)
+    .then((packerResult) => {
+      knex.select('packer_gearTable.*')
+      .from('gearTable')
+      .where('trip_id', req.params.trip_id)
+      .andWhere('packer_gearTable.packer_id', req.params.packer_id)
+      .andWhere('gearTable.type', 'community')
+      .andWhere('gearTable.trip_id', req.params.trip_id)
+      .leftJoin('packer_gearTable', 'packer_gearTable.gear_id', 'gearTable.id')
+      .then((results) => {
+        let promiseArr = [];
+        for(let i = 0; i < results.length; i++){
+          promiseArr.push(knex('packer_gearTable')
+          .where('id', results[i].id)
+          .update({
+            status: 'unpacked',
+            packer_id: null
+          }));
+        }
+        Promise.all(promiseArr).then(function(values) {
+          console.log(values);
+          res.redirect(`/editTrip/${req.params.trip_id}`);
+        });
+      })
     })
   },
 
