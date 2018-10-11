@@ -17,14 +17,24 @@ module.exports = {
   },
 
   createTrip:(req, res) => {
-    knex('tripsTable').join('packers', 'packers.id', req.session.packer_id).insert({
+    knex('tripsTable').insert({
       tripName: req.body.tripName,
       location: req.body.location,
       description: req.body.description,
       startDate: req.body.startDate,
-      endDate: req.body.endDate,
-    }).then((results)=>{
-    res.redirect('/trip/details/:id');
+      endDate: req.body.endDate
+    }, '*')
+    .then((newresults)=>{
+      knex('packer_tripTable')
+      .insert({
+        packer_id: req.session.packer_id,
+        trip_id: newresults[0].id,
+        role: 'admin',
+        confirmed: true
+      })
+      .then(()=>{
+        res.redirect(`/trip/details/${newresults[0].id}`);
+      })
     })
   },
 
