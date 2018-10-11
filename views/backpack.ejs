@@ -18,7 +18,7 @@
   </head>
   <body>
 
-    <h1>{TRIP}</h1>
+    <h1>Trp</h1>
 
     <a class="btn btn-dark" href="/welcome">Back</a>
     <a class="btn btn-dark" href="/logout">logout</a>
@@ -35,6 +35,27 @@
         <a class="nav-link" href="/trip/campground/1">Campground</a>
       </li>
     </ul>
+
+    <h2><%= packer.packerName %>'s Backpack</h2>
+    <hr>
+
+    <div class="add-ind-item-container">
+        <form class="add-ind-item" action="#" method="post">
+            <input type="text" name="gearName" placeholder="Add a new item.">
+            <input class="btn btn-success" type="submit" value="Add+">
+          </form>
+    </div>
+
+
+      <% for(let i = 0; i < gear.length; i++) { %>
+        <div class="individual-item-display">
+          <h4><%= gear[i].gearName.toUpperCase() %></h4>
+          <p>Trip: <%= gear[i].trip_id %></p>
+          <p>Packer: <%= gear[i].packer_id %></p>
+          <p>Type: <%= gear[i].type %></p>
+        </div>
+      <% } %>
+
 
     <br><br>
     <h3>Template for a form:</h3>

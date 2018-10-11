@@ -72,7 +72,33 @@ module.exports = {
   },
 
   backpack: (req, res) => {
-    res.render('backpack');
+    knex.select('gearTable.*', 'packersTable.id AS packer_id', 'packersTable.packerName')
+    .from('gearTable')
+    .orderBy('gearName', 'type')
+    .leftJoin('packer_gearTable', 'gearTable.id', 'packer_gearTable.gear_id')
+    .leftJoin('packersTable', 'packersTable.id', 'packer_gearTable.packer_id')
+    .where('trip_id', req.params.id)
+    .andWhere('packer_id', req.session.packer_id)
+    .then((gearResults) => {
+      knex('packersTable')
+      .where('id', req.session.packer_id)
+      .then((packerResult) => {
+        knex('tripsTable')
+        .where('id', req.params.id)
+        .then((tripResult) => {
+          res.render('backpack', { gear: gearResults, packer: packerResult[0], trip: tripResult[0] });
+        })
+        .catch(error => {
+          console.error(error);
+        })
+      })
+      .catch(error => {
+        console.error(error);
+      })
+    })
+    .catch(error => {
+      console.error(error);
+    })
   },
 
   campground: (req, res) => {
