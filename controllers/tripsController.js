@@ -75,25 +75,20 @@ module.exports = {
   },
 
   details: (req, res) => {
-    console.log(req.session.packer_id);
     knex("tripsTable")
       .where("tripsTable.id", req.params.id)
-      .then(trip => {
-        console.log(trip);
+      .then(trip => {    
         knex("packer_tripTable")
           .join("packersTable", "packer_tripTable.packer_id", "packersTable.id")
           .where("packer_tripTable.trip_id", req.params.id)
-          .then(packers => {
-            console.log(packers);
+          .then(packers => {        
             knex("packer_tripTable")
               .where("packer_tripTable.trip_id", req.params.id)
               .andWhere("packer_tripTable.role", "admin")
-              .then(admin => {
-                console.log("ADMIN", admin);
+              .then(admin => {            
                 knex("packersTable")
                   .where("id", req.session.packer_id)
-                  .then(user => {
-                    console.log("USER", user);
+                  .then(user => {                
                     knex("notesTable")
                       .where("notesTable.trip_id", req.params.id)
                       .join(
@@ -102,8 +97,7 @@ module.exports = {
                         "packersTable.id"
                       )
                       .orderBy("notesTable.created_at", "desc")
-                      .then(notes => {
-                        console.log("NOTES", notes);
+                      .then(notes => {                    
                         res.render("details", {
                           trip: trip[0],
                           packers,
