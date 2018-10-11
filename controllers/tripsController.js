@@ -53,7 +53,8 @@ module.exports = {
               tripsResults,
               packer_tripResults,
               startDate,
-              endDate
+              endDate,
+              userID: req.session.packer_id
             });
           });
       });
