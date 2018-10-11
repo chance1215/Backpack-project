@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Backpack</title>
+    <title><%= trip.tripName %> Campground</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- BOOSTRAP CSS -->
@@ -18,7 +18,7 @@
   </head>
   <body>
 
-    <h1>{TRIP}</h1>
+    <h1><%= trip.tripName.toUpperCase() %></h1>
 
     <a class="btn btn-dark" href="/welcome">Back</a>
     <a class="btn btn-dark" href="/logout">logout</a>
@@ -36,12 +36,41 @@
       </li>
     </ul>
 
-    <br><br>
-    <h3>Template for a form:</h3>
-    <form class="ourForm" action="#" method="post">
-      <input class="btn btn-success" type="submit" value="{EXAMPLE}">
-    </form>
+    <h2>Campground Items (comunity items)</h2>
+    <hr>
 
+    <!-- ADMIN ONLY - Add Item -->
+    <% if(trip.role === 'admin'){ %>
+      <div class="add-item-container">
+          <form class="add-item" action="/addItem/campground/<%= trip.id %>" method="post">
+              <input type="text" name="gearName" placeholder="Add a community item.">
+              <input class="btn btn-success" type="submit" value="Add+">
+            </form>
+      </div>
+      <% } %>
+
+    <!-- DISPLAY ITEMS -->
+    <% for(let i = 0; i < gear.length; i++) { %>
+      <div class="individual-item-display">
+        <h4><%= gear[i].gearName.toUpperCase() %></h4>
+        <p>Trip: <%= trip.id %></p>
+        <p>Packer: <%= gear[i].packer_id %></p>
+        <p>Packer Name: <%= gear[i].packerName %></p>
+        <p>Type: <%= gear[i].type %></p>
+        <% if(gear[i].status === 'unpacked'){ %>
+          <p class="<%= gear[i].status %>">Status: <%= gear[i].status %></p><br><br>
+          <a class="btn btn-dark btn-sm" href="/packCommunity/<%= trip.id %>/<%= gear[i].id %>/<%= packer.id %>">Click to pack.</a>
+        <% } else { %>
+          <p class="<%= gear[i].status %>">Status: <%= gear[i].status %> by <%= gear[i].packerName %></p><br><br>
+          <a class="btn btn-dark btn-sm" href="/unpackCommunity/<%= trip.id %>/<%= gear[i].id %>/<%= gear[i].packer_id %>">Click to unpack.</a>
+        <% } %>
+
+        <!-- ADMIN ONLY - Delete Item -->
+        <% if(trip.role === 'admin'){ %>
+          <a class="btn btn-danger" href="/deleteCommunityItem/<%= trip.id %>/<%= gear[i].id %>">Remove <%= gear[i].gearName.toLowerCase() %> from list.</a>
+        <% } %>
+      </div>
+    <% } %>
 
   </body>
 </html>

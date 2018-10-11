@@ -6,12 +6,12 @@ body{
   background-color: green;
 }
 
-.add-ind-item-container {
+.add-item-container {
   display: inline;
   display: flex;
   justify-content: center;
 }
-.add-ind-item {
+.add-item {
   text-align: center;
   background-color: green;
   width: 20em;
@@ -19,6 +19,13 @@ body{
 }
 
 .individual-item-display{
+  border: 1px;
+  border-style: solid;
+  padding: 1em;
+  margin: 1em;
+}
+
+.community-item-display{
   border: 1px;
   border-style: solid;
   padding: 1em;

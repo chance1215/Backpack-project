@@ -12,22 +12,40 @@ module.exports = function(app){
 
   app.use(authenticateUser);
 
+  //WELCOM PAGE:
   app.get('/welcome',packersController.welcome);
+
+  //NEW TRIP:
   app.get('/newTrip',tripsController.newTrip);
   app.post('/newTrip',tripsController.createTrip);
+  
+  //EDIT TRIP:
   app.get('/editTrip/:id',tripsController.editTrip);
   app.post('/updateTrip/:id',tripsController.updateTrip);
   app.get('/remove/:packer_id/:trip_id',tripsController.remove);
 
+  
+  //DETAILS PAGE:
   app.get('/trip/details/:id', tripsController.details);
 
-  app.get('/trip/backpack/:id', tripsController.backpack);
-  app.get('/deleteItem/:tripID/:gearID', tripsController.deleteItem);
-  app.post('/addItem/backpack/:tripID', tripsController.addIndividualItem);
-  app.get('/pack/:tripID/:gearID/:packerID', tripsController.packIndividual);
-  app.get('/unpack/:tripID/:gearID/:packerID', tripsController.unpackIndividual);
 
-  app.get('/trip/campground/:id', tripsController.campground);
+  //BACKPACK PAGE:
+  app.get('/trip/backpack/:id', gearController.backpack);
+  app.post('/addItem/backpack/:tripID', gearController.addIndividualItem);
+  app.get('/packIndividual/:tripID/:gearID/:packerID', gearController.packIndividual);
+  app.get('/unpackIndividual/:tripID/:gearID/:packerID', gearController.unpackIndividual);
+
+
+  //CAMPGROUND PAGE:
+  app.get('/trip/campground/:id', gearController.campground);
+  app.post('/addItem/campground/:tripID', gearController.addCommunityItem);
+  app.get('/packCommunity/:tripID/:gearID/:packerID', gearController.packCommunity);
+  app.get('/unpackCommunity/:tripID/:gearID/:packerID', gearController.unpackCommunity);
+
+
+  //DELETE ITEM FROM BACKPACK/CAMPGROUND PAGE:
+  app.get('/deleteIndividualItem/:tripID/:gearID', gearController.deleteIndividualItem);
+  app.get('/deleteCommunityItem/:tripID/:gearID', gearController.deleteCommunityItem);
 
 
 

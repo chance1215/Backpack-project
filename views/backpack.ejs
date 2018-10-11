@@ -41,9 +41,9 @@
 
     <!-- ADMIN ONLY - Add Item -->
     <% if(trip.role === 'admin'){ %>
-    <div class="add-ind-item-container">
-        <form class="add-ind-item" action="/addItem/backpack/<%= trip.id %>" method="post">
-            <input type="text" name="gearName" placeholder="Add a new item.">
+    <div class="add-item-container">
+        <form class="add-item" action="/addItem/backpack/<%= trip.id %>" method="post">
+            <input type="text" name="gearName" placeholder="Add an individual item.">
             <input class="btn btn-success" type="submit" value="Add+">
           </form>
     </div>
@@ -58,14 +58,14 @@
           <p>Type: <%= gear[i].type %></p>
           <p class="<%= gear[i].status %>">Status: <%= gear[i].status %></p><br><br>
           <% if(gear[i].status === 'unpacked'){ %>
-            <a class="btn btn-dark btn-sm" href="/pack/<%= trip.id %>/<%= gear[i].id %>/<%= gear[i].packer_id %>">Click to pack.</a>
+            <a class="btn btn-dark btn-sm" href="/packIndividual/<%= trip.id %>/<%= gear[i].id %>/<%= gear[i].packer_id %>">Click to pack.</a>
           <% } else { %>
-            <a class="btn btn-dark btn-sm" href="/unpack/<%= trip.id %>/<%= gear[i].id %>/<%= gear[i].packer_id %>">Click to unpack.</a>
+            <a class="btn btn-dark btn-sm" href="/unpackIndividual/<%= trip.id %>/<%= gear[i].id %>/<%= gear[i].packer_id %>">Click to unpack.</a>
           <% } %>
 
           <!-- ADMIN ONLY - Delete Item -->
           <% if(trip.role === 'admin'){ %>
-            <a class="btn btn-danger" href="/deleteItem/<%= trip.id %>/<%= gear[i].id %>">Remove <%= gear[i].gearName.toLowerCase() %> from list.</a>
+            <a class="btn btn-danger" href="/deleteIndividualItem/<%= trip.id %>/<%= gear[i].id %>">Remove <%= gear[i].gearName.toLowerCase() %> from list.</a>
           <% } %>
         </div>
       <% } %>

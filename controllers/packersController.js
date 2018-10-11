@@ -9,6 +9,7 @@ module.exports = {
   showLogin: function(req,res){
     res.render("login")
   },
+  
   login: (req, res) => {
     knex('packersTable').where('email', req.body.email).then((packerResult)=>{
       let packer = packerResult[0];
@@ -51,6 +52,7 @@ module.exports = {
         res.redirect('/login');
       }
     },
+
     welcome: (req,res)=>{
       knex('packersTable')
       .where('id',req.session.packer_id)
@@ -65,10 +67,11 @@ module.exports = {
         })
       })
     },
+
     logout: (req, res)=>{
-    req.session.destroy(()=>{
-      res.redirect('/');
-    });
-  },
+      req.session.destroy(()=>{
+        res.redirect('/');
+      });
+    },
 
   };
