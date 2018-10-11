@@ -153,7 +153,7 @@ module.exports = {
         .then((newItem) => {
           knex('packer_gearTable')
           .insert({
-            packer_id: undefined,
+            packer_id: null,
             gear_id: newItem[0].id,
             status: 'unpacked'
           })
@@ -179,7 +179,7 @@ module.exports = {
         knex('packer_gearTable')
         .where('gear_id', req.params.gearID)
         .update({
-          packer_id: undefined,
+          packer_id: null,
           status: 'unpacked'
         })
         .then(() => {
