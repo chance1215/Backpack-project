@@ -28,13 +28,13 @@
     <!-- Navigation between DETAILS, BACKPACK< CAMPGROUND -->
     <ul class="nav nav-pills nav-fill">
       <li class="nav-item">
-        <a class="nav-link" href="/trip/details/1">Details</a>
+        <a class="nav-link" href="/trip/details/<%= trip.id %>">Details</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link active" href="/trip/backpack/1">Backpack</a>
+        <a class="nav-link active" href="/trip/backpack/<%= trip.id %>">Backpack</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/trip/campground/1">Campground</a>
+        <a class="nav-link" href="/trip/campground/<%= trip.id %>">Campground</a>
       </li>
     </ul>
 

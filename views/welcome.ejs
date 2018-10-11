@@ -26,43 +26,26 @@
     <a class="btn btn-dark" href="/logout">logout</a>
     <a class="btn btn-warning" href="/newTrip">Create New Trip</a>
 
-    <!-- This button found inside each trip display -->
-    <a class="btn btn-warning" href="/trip/details/1">View Trips</a>
-
     <br><br>
-    <h3>Template for a form:</h3>
-    <form class="ourForm" action="#" method="post">
-      <input class="btn btn-success" type="submit" value="{EXAMPLE}">
-    </form>
-    <h2>upcoming trips</h2>
-     <hr>
-     <div class="upcomingTrips">
+
+    <h2>Upcoming Trips</h2>
+    <hr>
+
        <% for(var i=0; i <trip.length; i++){ %>
+          <div class="upcomingTrips">
+            
+            <h3><%= trip[i].tripName %></h3>
+            <h5><%= trip[i].startDate.toDateString() %> <i>to</i> <%= trip[i].endDate.toDateString() %></h5>
+            <p><b><%= trip[i].location %></b></p>
+            <p><%= trip[i].description %></p>
 
-         <div>
-           <p><%= trip[i].tripName %></p>
-         </div>
-         <hr>
-         <br>
-         <div>
-           <p><%= trip[i].date %></p>
-         </div>
-
-         <div>
-           <p><%= trip[i].location %></p>
-         </div>
-
-         <div>
-           <p><%= trip[i].description %></p>
-           <br>
-         </div>
-               <% if(trip[i].role === "admin"){ %>
-                 <a href="/trip/details/<%=trip[i].id%>" class="btn btn-success"  value="view/edit">View/Edit</a>
-
-                 <%} else {%>
-                   <a href="/trip/details/<%=trip[i].id%>" class="btn btn-success"  value="view">View</a>
-                <%}%>
-       <%}%>
-     </div>
+            <% if(trip[i].role === "admin"){ %>
+              <a href="/trip/details/<%=trip[i].id%>" class="btn btn-success"  value="view/edit">View / Edit</a>
+            <%} else {%>
+              <a href="/trip/details/<%=trip[i].id%>" class="btn btn-success"  value="view">View</a>
+            <% } %>
+          </div>
+          <hr>   
+      <% } %>
   </body>
 </html>

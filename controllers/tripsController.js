@@ -68,7 +68,16 @@ module.exports = {
   },
 
   details: (req, res) => {
-    res.render('details');
+    
+    knex('tripsTable')
+    .where('id', req.params.id)
+    .then((tripResult) => {
+      res.render('details', { trip: tripResult[0] });
+    })
+    .catch(error => {
+      console.error(error);
+    })
+    
   },
 
   backpack: (req, res) => {
@@ -83,7 +92,7 @@ module.exports = {
       knex('packersTable')
       .where('id', req.session.packer_id)
       .then((packerResult) => {
-        knex.select('tripsTable.tripName', 'packersTable.packerName', 'packer_tripTable.role')
+        knex.select('tripsTable.id', 'tripsTable.tripName', 'packersTable.packerName', 'packer_tripTable.role')
         .from('tripsTable')
         .where('tripsTable.id', req.params.id)
         .andWhere('packer_tripTable.packer_id', req.session.packer_id)
@@ -106,7 +115,16 @@ module.exports = {
   },
 
   campground: (req, res) => {
-    res.render('campground');
+
+    knex('tripsTable')
+    .where('id', req.params.id)
+    .then((tripResult) => {
+      res.render('campground', { trip: tripResult[0] });
+    })
+    .catch(error => {
+      console.error(error);
+    })
+
   },
 
 }
