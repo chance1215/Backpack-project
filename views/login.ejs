@@ -1,45 +1,107 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <title>Backpack</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- BOOSTRAP CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<head>
+  <meta charset="utf-8">
+  <title>Backpack</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- CSS -->
-    <link rel="stylesheet" type="text/css" href="/assets/style.css">
+  <!-- BOOSTRAP CSS -->
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+    crossorigin="anonymous">
 
-    <!-- Confirm password logic -->
-    <script type="text/javascript" src="/assets/loginLogic.js" ></script>
+  <!-- CSS -->
+  <link rel="stylesheet" type="text/css" href="/assets/style.css">
 
-    <!-- BOOTSTRAP SCRIPT -->
-    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous" defer></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous" defer></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js" integrity="sha384-pjaaA8dDz/5BgdFUPX6M/9SUZv4d12SUPF0axWc+VRZkx5xU3daN+lYb49+Ax+Tl" crossorigin="anonymous" defer></script>
-  </head>
-  <body>
+  <!-- Confirm password logic -->
+  <script type="text/javascript" src="/assets/loginLogic.js"></script>
 
-    <h1>Login/Register</h1>
+  <!-- BOOTSTRAP SCRIPT -->
+  <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+    crossorigin="anonymous" defer></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
+    crossorigin="anonymous" defer></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js" integrity="sha384-pjaaA8dDz/5BgdFUPX6M/9SUZv4d12SUPF0axWc+VRZkx5xU3daN+lYb49+Ax+Tl"
+    crossorigin="anonymous" defer></script>
+</head>
 
-    <a class="btn btn-dark" href="/">Back</a>
+<body>
+  <div class="container">
+    <div class="row d-flex justify-content-end">
+      <a class="btn btn-dark" href="/">Back</a>
+    </div>
+    <br>
 
-    <form class="login" action="/login" method="post" require>
-      <input type="email" name="email" placeholder="email" require>
-      <input type="password" name="password" placeholder="password" require>
-      <input class="btn btn-success" type="submit" value="login">
-    </form>
+    <div class="row">
+      <div class="card" style="width: 100%;">
+
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header text-center alert alert-primary" role="alert">
+                  <h1>Log In</h1>
+                </div>
+                <div class="card-body">
+
+                  <form class="login" action="/login" method="post">
+                    <div class="form-group">
+                      <label for="email">Email address</label>
+                      <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Example@Email.com"
+                        required>
+                    </div>
+                    <div class="form-group">
+                      <label for="password">Password</label>
+                      <input type="password" class="form-control" name="password" placeholder="Password" required>
+                    </div>
+
+                    <button type="submit" value="login" class="btn btn-primary" style="width: 100%;">Login</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card">
+                <div class="card-header text-center alert alert-success" role="alert">
+                  <h1>Register</h1>
+                </div>
+                <div class="card-body">
+
+                  <form class="register" action="/register" method="post">
+                    <div class="form-group">
+                      <label for="packerName">Name</label>
+                      <input type="text" class="form-control" name="packerName" placeholder="Name" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="email">Email address</label>
+                      <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Enter email"
+                        required>
+                    </div>
+                    <div class="form-group">
+                      <label for="password">Password</label>
+                      <input id="password" type="password" class="form-control" onkeyup="check()" name="password"
+                        placeholder="Password" required>
+                    </div>
+                    <div class="form-group">
+                      <label for="passwordConfirmation">Password Confirmation</label>
+                      <input id="confirm_password" type="password" class="form-control" name="passwordConfirmation"
+                        placeholder="Confirm Password" onkeyup='check();' required>
+                      <span id="message"></span>
+                    </div>
+
+                    <button id="btn_register" type="submit" class="btn btn-success" style="width: 100%;" value="register">Register</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
 
 
-    <form class="register" action="/register" method="post">
-      <input type="text" name="packerName" placeholder="name" require>
-      <input type="email" name="email" placeholder="email" require>
-      <input id="password" type="password" name="password" placeholder="password" onkeyup='check();' require>
-      <input id="confirm_password" type="password" name="passwordConfirmation" placeholder="confirm password" onkeyup='check();' require>
-      <span id='message'></span>
-    <input id="btn_register" class="btn btn-success" type="submit" value="register">
-    </form>
+    </div>
+  </div>
+</body>
 
-  </body>
 </html>
