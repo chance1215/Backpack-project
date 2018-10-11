@@ -25,6 +25,19 @@ body{
   margin: 1em;
 }
 
+.packed{
+  background-color: #008E00;
+  display: inline;
+  padding: 0.5em;
+  border-radius: 10px;
+}
+.unpacked{
+  background-color: #ED0038;
+  display: inline;
+  padding: 0.5em;
+  border-radius: 10px;
+}
+
 .upcomingTrips {
 
 }

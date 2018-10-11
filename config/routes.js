@@ -19,9 +19,15 @@ module.exports = function(app){
   app.post('/updateTrip/:id',tripsController.updateTrip);
   app.get('/remove/:packer_id/:trip_id',tripsController.remove);
 
-  app.get('/trip/details/:id', tripsController.details)
-  app.get('/trip/backpack/:id', tripsController.backpack)
-  app.get('/trip/campground/:id', tripsController.campground)
+  app.get('/trip/details/:id', tripsController.details);
+
+  app.get('/trip/backpack/:id', tripsController.backpack);
+  app.get('/deleteItem/:tripID/:gearID', tripsController.deleteItem);
+  app.post('/addItem/backpack/:tripID', tripsController.addIndividualItem);
+  app.get('/pack/:tripID/:gearID/:packerID', tripsController.packIndividual);
+  app.get('/unpack/:tripID/:gearID/:packerID', tripsController.unpackIndividual);
+
+  app.get('/trip/campground/:id', tripsController.campground);
 
 
 
