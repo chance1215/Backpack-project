@@ -3,7 +3,13 @@ const moment = require('moment');
 
 module.exports = {
   index: function(req, res) {
-    res.render("index");
+    let status = '';
+    if(!req.session.packer_id){
+      status = 'loggedOut';
+    } else {
+      status = 'loggedIn';
+    }
+    res.render("index", { status: status });
   },
 
   showLogin: function(req,res){
