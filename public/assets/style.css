@@ -3,7 +3,11 @@ body{
 }
 
 .splash{
-  background-color: blue;
+  background:url(/assets/backpack-web.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 20%;
+  background-position: center;
 }
 .ourForm {
   background-color: green;
