@@ -24,39 +24,44 @@ module.exports = {
       startDate: req.body.startDate,
       endDate: req.body.endDate,
     }).then((results)=>{
-    res.redirect('/details/:id');
+    res.redirect('/trip/details/:id');
     })
   },
 
-  editTrip:(req, res) => {
+  editTrip: (req, res) => {
+    knex("tripsTable")
+      .where("id", req.params.id)
+      .then(tripsResults => {
+        let startDate = moment(tripsResults[0].startDate).format("YYYY-MM-DD");
+        let endDate = moment(tripsResults[0].endDate).format("YYYY-MM-DD");
 
-    knex('tripsTable')
-    .where('id', req.params.id)
-    .then((tripsResults) => {
-      let startDate = moment(tripsResults[0].startDate).format('YYYY-MM-DD');
-      let endDate = moment(tripsResults[0].endDate).format('YYYY-MM-DD');
-
-      knex('packer_tripTable')
-      .where('trip_id', req.params.id)
-      .join('packersTable', 'packersTable.id', 'packer_tripTable.packer_id')
-      .then((packer_tripResults) => {
-        res.render('editTrip', {tripsResults, packer_tripResults, startDate, endDate});
-      })
-    })
+        knex("packer_tripTable")
+          .where("trip_id", req.params.id)
+          .join("packersTable", "packersTable.id", "packer_tripTable.packer_id")
+          .then(packer_tripResults => {
+            res.render("editTrip", {
+              tripsResults,
+              packer_tripResults,
+              startDate,
+              endDate
+            });
+          });
+      });
   },
 
   updateTrip: (req, res) => {
-    knex('tripsTable')
-    .where('id', req.params.id)
-    .update({
-      tripName: req.body.tripName,
-      startDate: req.body.startDate,
-      endDate: req.body.endDate,
-      location: req.body.location,
-      description: req.body.description
-      }).then(()=>{
-      res.redirect(`/trip/details/${req.params.id}`);
-    })
+    knex("tripsTable")
+      .where("id", req.params.id)
+      .update({
+        tripName: req.body.tripName,
+        startDate: req.body.startDate,
+        endDate: req.body.endDate,
+        location: req.body.location,
+        description: req.body.description
+      })
+      .then(() => {
+        res.redirect(`/trip/details/${req.params.id}`);
+      });
   },
 
   details: (req, res) => {
@@ -99,34 +104,41 @@ module.exports = {
   },
 
   remove: (req, res) => {
-    knex('packer_tripTable')
-    .delete()
-    .where('packer_id', req.params.packer_id)
-    .andWhere('trip_id', req.params.trip_id)
-    .then((packerResult) => {
-      knex.select('packer_gearTable.*')
-      .from('gearTable')
-      .where('trip_id', req.params.trip_id)
-      .andWhere('packer_gearTable.packer_id', req.params.packer_id)
-      .andWhere('gearTable.type', 'community')
-      .andWhere('gearTable.trip_id', req.params.trip_id)
-      .leftJoin('packer_gearTable', 'packer_gearTable.gear_id', 'gearTable.id')
-      .then((results) => {
-        let promiseArr = [];
-        for(let i = 0; i < results.length; i++){
-          promiseArr.push(knex('packer_gearTable')
-          .where('id', results[i].id)
-          .update({
-            status: 'unpacked',
-            packer_id: null
-          }));
-        }
-        Promise.all(promiseArr).then(function(values) {
-          console.log(values);
-          res.redirect(`/editTrip/${req.params.trip_id}`);
-        });
-      })
-    })
+    knex("packer_tripTable")
+      .delete()
+      .where("packer_id", req.params.packer_id)
+      .andWhere("trip_id", req.params.trip_id)
+      .then(packerResult => {
+        knex
+          .select("packer_gearTable.*")
+          .from("gearTable")
+          .where("trip_id", req.params.trip_id)
+          .andWhere("packer_gearTable.packer_id", req.params.packer_id)
+          .andWhere("gearTable.type", "community")
+          .andWhere("gearTable.trip_id", req.params.trip_id)
+          .leftJoin(
+            "packer_gearTable",
+            "packer_gearTable.gear_id",
+            "gearTable.id"
+          )
+          .then(results => {
+            let promiseArr = [];
+            for (let i = 0; i < results.length; i++) {
+              promiseArr.push(
+                knex("packer_gearTable")
+                  .where("id", results[i].id)
+                  .update({
+                    status: "unpacked",
+                    packer_id: null
+                  })
+              );
+            }
+            Promise.all(promiseArr).then(function(values) {
+              console.log(values);
+              res.redirect(`/editTrip/${req.params.trip_id}`);
+            });
+          });
+      });
   },
 
   sendInvite: (req, res) => {
@@ -138,8 +150,6 @@ module.exports = {
     <h5>${req.body.location}</h5>
     <h5>${req.body.date}</h5>
     <p>${req.body.description}</p>
-
-    
     `;
 
     // create reusable transporter object using the default SMTP transport
