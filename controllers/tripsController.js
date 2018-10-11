@@ -78,18 +78,18 @@ module.exports = {
   details: (req, res) => {
     knex("tripsTable")
       .where("tripsTable.id", req.params.id)
-      .then(trip => {    
+      .then(trip => {
         knex("packer_tripTable")
           .join("packersTable", "packer_tripTable.packer_id", "packersTable.id")
           .where("packer_tripTable.trip_id", req.params.id)
-          .then(packers => {        
+          .then(packers => {
             knex("packer_tripTable")
               .where("packer_tripTable.trip_id", req.params.id)
               .andWhere("packer_tripTable.role", "admin")
-              .then(admin => {            
+              .then(admin => {
                 knex("packersTable")
                   .where("id", req.session.packer_id)
-                  .then(user => {                
+                  .then(user => {
                     knex("notesTable")
                       .where("notesTable.trip_id", req.params.id)
                       .join(
@@ -98,7 +98,7 @@ module.exports = {
                         "packersTable.id"
                       )
                       .orderBy("notesTable.created_at", "desc")
-                      .then(notes => {                    
+                      .then(notes => {
                         res.render("details", {
                           trip: trip[0],
                           packers,
@@ -153,47 +153,72 @@ module.exports = {
   },
 
   sendInvite: (req, res) => {
-    console.log(req.body);
-
-    const output = `
+    knex("packersTable")
+      .where("email", req.body.email)
+      .then(user => {
+        if (user[0]) {
+          const output = `
     <p>You have been Invited to a trip!</p>
     <h3>${req.body.name}</h3>
     <h5>${req.body.location}</h5>
     <h5>${req.body.date}</h5>
     <p>${req.body.description}</p>
+
+    Click <a href="http://localhost:8000/accepted_invite/${user[0].id}/${
+            req.params.trip_id
+          }" target="_blank" rel="noopener noreferrer">HERE</a> to accept trip invite!
     `;
 
-    // create reusable transporter object using the default SMTP transport
-    let transporter = nodemailer.createTransport({
-      host: "smtp.gmail.com",
-      port: 587,
-      secure: false, // true for 465, false for other ports
-      auth: {
-        user: "email.is.not.real123@gmail.com",
-        pass: "asdfghjkl123!" // generated ethereal password
-      }
-    });
+          // create reusable transporter object using the default SMTP transport
+          let transporter = nodemailer.createTransport({
+            host: "smtp.gmail.com",
+            port: 587,
+            secure: false, // true for 465, false for other ports
+            auth: {
+              user: "email.is.not.real123@gmail.com",
+              pass: "asdfghjkl123!" // generated ethereal password
+            }
+          });
 
-    // setup email data with unicode symbols
-    let mailOptions = {
-      from: `${req.body.packerName} ` + " 👻 <email.is.not.real123@gmail.com>", // sender address
-      to: `${req.body.email}`, // list of receivers
-      subject: "You've been invited to a trip!", // Subject line
-      html: output // html body
-    };
+          // setup email data with unicode symbols
+          let mailOptions = {
+            from:
+              `${req.body.packerName} ` +
+              " 👻 <email.is.not.real123@gmail.com>", // sender address
+            to: `${req.body.email}`, // list of receivers
+            subject: "You've been invited to a trip!", // Subject line
+            html: output // html body
+          };
 
-    // send mail with defined transport object
-    transporter.sendMail(mailOptions, (error, info) => {
-      if (error) {
-        return console.log(error);
-      }
-      console.log("Message sent: %s", info.messageId);
-      // Preview only available when sending through an Ethereal account
-      console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
-      res.redirect(`/trip/details/${req.params.trip_id}`);
-      // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
-      // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
-    });
+          // send mail with defined transport object
+          transporter.sendMail(mailOptions, (error, info) => {
+            if (error) {
+              return console.log(error);
+            }
+            console.log("Message sent: %s", info.messageId);
+            // Preview only available when sending through an Ethereal account
+            console.log("Preview URL: %s", nodemailer.getTestMessageUrl(info));
+            res.redirect(`/trip/details/${req.params.trip_id}`);
+            // Message sent: <b658f8ca-6296-ccf4-8306-87d57a0b4321@example.com>
+            // Preview URL: https://ethereal.email/message/WaQKMgKddxQDoou...
+          });
+        } else {
+          res.send("Email Doens't Exist.");
+        }
+      });
+  },
+
+  acceptInvite: (req, res) => {
+    knex("packer_tripTable")
+      .insert({
+        packer_id: req.params.user_id,
+        trip_id: req.params.trip_id,
+        role: "packer",
+        confirmed: true
+      })
+      .then(() => {
+        res.render("thank_you");
+      });
   },
 
   backpack: (req, res) => {
