@@ -20,13 +20,19 @@
 
     <h1>Create New Trip</h1>
 
-    <a class="btn btn-dark" href="/welcome">Back</a>
+    <a class="btn btn-dark" href="/trip/details/1">Back</a>
     <a class="btn btn-dark" href="/logout">logout</a>
 
     <br><br>
-    <h3>Template for a form:</h3>
-    <form class="ourForm" action="#" method="post">
-      <input class="btn btn-success" type="submit" value="{EXAMPLE}">
+
+    <h3>Create New Trip:</h3>
+    <form class="ourForm" action="/createTrip/:id" method="post">
+      <input type="text" name="tripName" placeholder="Trip Name">
+      <input type="text" name="location" placeholder="Location">
+      <input type="textarea" name="description" placeholder="Trip Description">
+      <input type="date" name="startDate" value="2018-10-12">
+      <input type="date" name="endDate" value="2018-10-12">
+      <input class="btn btn-success" type="submit" value="Create Trip">
     </form>
 
   </body>
