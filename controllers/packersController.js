@@ -3,12 +3,19 @@ const moment = require('moment');
 
 module.exports = {
   index: function(req, res) {
-    res.render("index");
+    let status = '';
+    if(!req.session.packer_id){
+      status = 'loggedOut';
+    } else {
+      status = 'loggedIn';
+    }
+    res.render("index", { status: status });
   },
 
   showLogin: function(req,res){
     res.render("login")
   },
+  
   login: (req, res) => {
     knex('packersTable').where('email', req.body.email).then((packerResult)=>{
       let packer = packerResult[0];
@@ -51,13 +58,26 @@ module.exports = {
         res.redirect('/login');
       }
     },
+
     welcome: (req,res)=>{
-      res.render("welcome")
+      knex('packersTable')
+      .where('id',req.session.packer_id)
+      .then((packerResults)=>{
+        knex.select('tripsTable.*', 'packer_tripTable.role', 'packersTable.id AS admin_id', 'packersTable.packerName')
+        .from('tripsTable')
+        .where('packer_id', req.session.packer_id)
+        .leftJoin('packer_tripTable', 'tripsTable.id', 'packer_tripTable.trip_id')
+        .leftJoin('packersTable', 'packersTable.id', 'packer_tripTable.packer_id')
+        .then((tripResults)=>{
+          res.render("welcome",{packer:packerResults[0], trip:tripResults})
+        })
+      })
     },
+
     logout: (req, res)=>{
-    req.session.destroy(()=>{
-      res.redirect('/');
-    });
-  },
-  
+      req.session.destroy(()=>{
+        res.redirect('/');
+      });
+    },
+
   };

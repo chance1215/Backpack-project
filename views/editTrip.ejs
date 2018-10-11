@@ -18,16 +18,46 @@
   </head>
   <body>
 
-    <h1>Edit {TRIP}</h1>
+    <h1>Edit Trip</h1>
 
     <a class="btn btn-dark" href="/trip/details/1">Back</a>
-    <a class="btn btn-dark" href="/logout">logout</a>
+    <a class="btn btn-dark float-right" href="/logout">Logout</a>
 
     <br><br>
-    <h3>Template for a form:</h3>
-    <form class="ourForm" action="#" method="post">
-      <input class="btn btn-success" type="submit" value="{EXAMPLE}">
-    </form>
+    <% tripsResults.forEach(trip => { %>
+      <h3><%= trip.tripName%></h3>
+      <form action="/updateTrip/<%= trip.id %>" method="post">
+      <div class="flex" style=“display:flex; justify-content:center; margin: 20px auto; max-width: 80%; border: 1px solid black”>
+      <div class="col-md-3">
+      <h5>Trip Name:</h5>
+        <input type="text" name="tripName" value="<%= trip.tripName %>" placeholder="Trip Name">
+      <h5>Date:</h5>
+        <input type="date" name="startDate" value="<%= startDate %>">
+        <input type="date" name="endDate" value="<%= endDate %>">
+      </div>
+
+      <div class="col-md-3">
+        <h5>Location:</h5>
+        <input type="text" name="location" value="<%= trip.location %>" placeholder="Location">
+        <h5>Description</h5>
+        <textarea rows="4" cols="25" name="description"><%= trip.description %></textarea>
+      </div>
+      <div class="col-md-3">
+          <input type="submit" value="Update Trip" class="btn btn-primary" style="margin:20px auto;"></input>
+        </form>
+      </div>
+    </div>
+    <% }) %>
+
+    <h5>Attending:</h5>
+    <% packer_tripResults.forEach(pack_trip => { %>
+      <div class="col-md-3">
+        <h5><%= pack_trip.packerName %></h5>
+        <form action="/remove/<%= pack_trip.packer_id %>/<%= tripsResults[0].id %>" method="get">
+          <button type="submit" class="btn btn-primary" style="margin:20px auto;">Remove</button>
+        </form>
+      </div>
+    <% }) %>
 
   </body>
 </html>
