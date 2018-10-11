@@ -57,6 +57,8 @@ module.exports = {
       }).then(()=>{
       res.redirect(`/trip/details/${req.params.id}`);
     })
+  },
+  
   details: (req, res) => {
     console.log(req.session.packer_id);
     knex("tripsTable")
@@ -131,6 +133,8 @@ module.exports = {
         });
       })
     })
+  },
+
   sendInvite: (req, res) => {
     console.log(req.body);
 
