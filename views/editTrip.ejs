@@ -17,32 +17,35 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js" integrity="sha384-pjaaA8dDz/5BgdFUPX6M/9SUZv4d12SUPF0axWc+VRZkx5xU3daN+lYb49+Ax+Tl" crossorigin="anonymous" defer></script>
   </head>
   <body>
-
-    <h1>Edit Trip</h1>
+<div class="container center_div">
+  <div class="row">
+    <div class="col-md-10 col-md-offset-2">
+        <h1>Edit Trip</h1>
+        <hr>
 
     <a class="btn btn-dark" href="/trip/details/<%= tripsResults[0].id %>">Back</a>
     <a class="btn btn-dark float-right" href="/logout">Logout</a>
 
     <br><br>
     <% tripsResults.forEach(trip => { %>
-      <h3><%= trip.tripName%></h3>
-      <form action="/updateTrip/<%= trip.id %>" method="post">
+      <h3 class="text-center"><%= trip.tripName%></h3>
+      <form action="/updateTrip/<%= trip.id %>"class="text-center" style="background-color:#2EB2E6" method="post">
       <div class="flex" style=“display:flex; justify-content:center; margin: 20px auto; max-width: 80%; border: 1px solid black”>
-      <div class="col-md-3">
-      <h5>Trip Name:</h5>
+      <div class="col-md-12">
+      <h5 class="text-center">Trip Name:</h5>
         <input type="text" name="tripName" value="<%= trip.tripName %>" placeholder="Trip Name">
-      <h5>Date:</h5>
+      <h5 class="text-center">Date:</h5>
         <input type="date" name="startDate" value="<%= startDate %>">
         <input type="date" name="endDate" value="<%= endDate %>">
       </div>
 
-      <div class="col-md-3">
-        <h5>Location:</h5>
-        <input type="text" name="location" value="<%= trip.location %>" placeholder="Location">
+      <div class="col-md-12">
+        <h5 class="text-center">Location:</h5>
+        <input type="text" name="location" class="text-center" value="<%= trip.location %>" placeholder="Location">
         <h5>Description</h5>
-        <textarea rows="4" cols="25" name="description"><%= trip.description %></textarea>
+        <textarea rows="4" cols="50" name="description"><%= trip.description %></textarea>
       </div>
-      <div class="col-md-3">
+      <div class="col-md-12">
           <input type="submit" value="Update Trip" class="btn btn-primary" style="margin:20px auto;"></input>
         </form>
       </div>
@@ -53,18 +56,20 @@
     <h5>Attending:</h5>
     <% packer_tripResults.forEach(pack_trip => { %>
       <% if(pack_trip.packer_id !== userID){ %>
-        <div class="col-md-3">
+        <div class="col-md-3" style="background-color:#888685">
           <h5><%= pack_trip.packerName %></h5>
           <form action="/remove/<%= pack_trip.packer_id %>/<%= tripsResults[0].id %>" method="get">
             <button type="submit" class="btn btn-primary" style="margin:20px auto;">Remove</button>
           </form>
         </div>
       <% } else { %>
-        <div class="col-md-3">
+        <div class="col-md-3" style="background-color:#AFACAB">
           <h5><%= pack_trip.packerName %> is the trip host.</h5><br>
         </div>
       <% } %>
     <% }) %>
-
+  </div>
+  </div>
+</div>
   </body>
 </html>
