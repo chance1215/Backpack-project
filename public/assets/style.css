@@ -18,11 +18,11 @@
 }
 
 .backpack-background-image{
-  background:url(/assets/images/backpack-web.jpg);
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: 20%;
-  background-position: center;
+  background:url(/assets/images/backpack-web.jpg) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }
 
 .jumbotron{
@@ -42,6 +42,7 @@
   background-attachment: fixed;
   background-size: 100%;
   background-position: center;
+  
 }
 
 .add-item-container {
@@ -101,6 +102,18 @@ a:hover{
 .navbar{
   padding-top: 12px;
   margin-bottom: 2em;
+}
+
+.nav-img{
+  width: 1.5em;
+  height: auto;
+  display: inline;
+  border: 1px;
+  border-color: #dcd9d8;
+  border-style: solid;
+  border-radius: 5px;
+  padding: 3px;
+  background-color: #4C4E54;
 }
 
 hr.style-seven {
