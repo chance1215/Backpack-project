@@ -35,12 +35,12 @@
         <h1 class="text-white fredericka-font"><a class="remove-blue" href="/">BACKPACK</a></h1>
         <form class="form-inline">
           <a class="btn btn-outline-success float-right ruda-font" href="/welcome">Back</a>&nbsp
-          <a class="btn btn-outline-danger ruda-font float-right" href="/logout">Logout</a>&nbsp  
+          <a class="btn btn-outline-danger ruda-font float-right" href="/logout">Logout</a>&nbsp
         </form>
-      </nav>    
-  
+      </nav>
+
       <div class="container">
-  
+
         <div class="row">
           <div class="col-md-12">
               <h1 class="ruda-font text-center bold"><%= trip.tripName.toUpperCase() %></h1>
@@ -61,9 +61,9 @@
           <li class="nav-item">
             <a class="nav-link ruda-font active pill-width" href="/trip/campground/<%= trip.id %>">Campground</a>
           </li>
-        </ul>        
+        </ul>
       </div>
-    </div><br>        
+    </div><br>
 
 
       <div class="row">
@@ -81,7 +81,7 @@
                       </form>
                 </div>
               <% } %>
-              
+
               <% for(let i = 0; i < gear.length; i++) { %>
                 <hr>
                 <div class="text-center">
@@ -99,69 +99,10 @@
                 </div><br>
               <% } %>
 
-<<<<<<< HEAD
-  </div>
-  <body>
-    <h1><%= trip.tripName.toUpperCase() %></h1>
-
-    <a class="btn btn-dark" href="/welcome">Back</a>
-    <a class="btn btn-dark float-right" href="/logout">Logout</a>
-
-    <!-- Navigation between DETAILS, BACKPACK< CAMPGROUND -->
-    <ul class="nav nav-pills nav-fill">
-      <li class="nav-item">
-        <a class="nav-link" href="/trip/details/<%= trip.id %>">Details</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/trip/backpack/<%= trip.id %>">Backpack</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active" href="/trip/campground/<%= trip.id %>">Campground</a>
-      </li>
-    </ul>
-
-    <h2>Campground Items</h2>
-    <p>These are community items assigned to one person.</p>
-    <hr>
-
-    <!-- ADMIN ONLY - Add Item -->
-    <% if(trip.role === 'admin'){ %>
-      <div class="add-item-container">
-          <form class="add-item" action="/addItem/campground/<%= trip.id %>" method="post">
-              <input type="text" name="gearName" placeholder="Add a community item.">
-              <input class="btn btn-success" type="submit" value="Add+">
-            </form>
-      </div>
-    <% } %>
-
-    <!-- DISPLAY ITEMS -->
-    <% for(let i = 0; i < gear.length; i++) { %>
-      <div class="individual-item-display">
-        <h4><%= gear[i].gearName.toUpperCase() %></h4>
-        <p>Trip: <%= trip.id %></p>
-        <p>Packer: <%= gear[i].packer_id %></p>
-        <p>Packer Name: <%= gear[i].packerName %></p>
-        <p>Type: <%= gear[i].type %></p>
-        <% if(gear[i].status === 'unpacked'){ %>
-          <p class="<%= gear[i].status %>">Status: <%= gear[i].status %></p><br><br>
-          <a class="btn btn-dark btn-sm" href="/packCommunity/<%= trip.id %>/<%= gear[i].id %>/<%= packer.id %>">Click to pack.</a>
-        <% } else { %>
-          <p class="<%= gear[i].status %>">Status: <%= gear[i].status %> by <%= gear[i].packerName %></p><br><br>
-          <a class="btn btn-dark btn-sm" href="/unpackCommunity/<%= trip.id %>/<%= gear[i].id %>/<%= gear[i].packer_id %>">Click to unpack.</a>
-        <% } %>
-
-        <!-- ADMIN ONLY - Delete Item -->
-        <% if(trip.role === 'admin'){ %>
-          <a class="btn btn-danger" href="/deleteCommunityItem/<%= trip.id %>/<%= gear[i].id %>">Remove <%= gear[i].gearName.toLowerCase() %> from list.</a>
-        <% } %>
-      </div>
-    <% } %>
-=======
           </div>
         </div>
         <div class="col-md-3"></div>
-      </div> 
+      </div>
     </div>
->>>>>>> 9de334535014343437d73f04f1a328c86e51c081
   </body>
 </html>
