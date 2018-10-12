@@ -11,64 +11,93 @@
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="/assets/style.css">
 
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great|Ruda|Skranji" rel="stylesheet">
+
     <!-- BOOTSTRAP SCRIPT -->
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous" defer></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous" defer></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js" integrity="sha384-pjaaA8dDz/5BgdFUPX6M/9SUZv4d12SUPF0axWc+VRZkx5xU3daN+lYb49+Ax+Tl" crossorigin="anonymous" defer></script>
   </head>
-  <body>
+  <body class="lake-background-image">
 
-    <h1><%= trip.tripName.toUpperCase() %></h1>
+    <!-- NAVIGATION -->
+    <nav class="navbar navbar-dark bg-dark fixed-top navbar">
+      <h1 class="text-white fredericka-font"><a class="remove-blue" href="/">BACKPACK</a></h1>
+      <form class="form-inline">
+        <a class="btn btn-outline-success float-right ruda-font" href="/welcome">Back</a>&nbsp
+        <a class="btn btn-outline-danger ruda-font float-right" href="/logout">Logout</a>&nbsp  
+      </form>
+    </nav>    
 
-    <a class="btn btn-dark" href="/welcome">Back</a>
-    <a class="btn btn-dark float-right" href="/logout">Logout</a>
+    <div class="container">
 
-    <!-- Navigation between DETAILS, BACKPACK< CAMPGROUND -->
-    <ul class="nav nav-pills nav-fill">
-      <li class="nav-item">
-        <a class="nav-link" href="/trip/details/<%= trip.id %>">Details</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active" href="/trip/backpack/<%= trip.id %>">Backpack</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/trip/campground/<%= trip.id %>">Campground</a>
-      </li>
-    </ul>
+    <div class="row">
+      <div class="col-md-12">
+          <h1 class="ruda-font text-center bold"><%= trip.tripName.toUpperCase() %></h1>
+          <hr class="style-seven">
+      </div>
+    </div>      
 
-    <h2><%= packer.packerName %>'s Backpack</h2>
-    <p>These are items that each person on the trip needs to bring.</p>
-    <hr>
+    <div class="row">
+      <div class="col-md-12 d-flex justify-content-center">
+        <!-- Navigation between DETAILS, BACKPACK< CAMPGROUND -->
+        <ul class="nav nav-pills nav-fill">
+          <li class="nav-item">
+            <a class="nav-link ruda-font pill-width" href="/trip/details/<%= trip.id %>">Details</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link ruda-font active pill-width" href="/trip/backpack/<%= trip.id %>">Backpack</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link ruda-font pill-width" href="/trip/campground/<%= trip.id %>">Campground</a>
+          </li>
+        </ul>        
+      </div>
+    </div><br>    
+    
+    <div class="row">
+      <div class="col-md-3"></div>
+      <div class="col-md-6">
+        <div class="card mycard">
+            <h2 class="ruda-font bold text-center"><%= packer.packerName %>'s Backpack</h2>
+            <p class="ruda-font text-center">These are items that each person on the trip needs to bring.</p>
+            <!-- ADMIN ONLY - Add Item -->
+            <% if(trip.role === 'admin'){ %>
+            <div class="add-item-container">
+                <form class="add-item" action="/addItem/backpack/<%= trip.id %>" method="post">
+                    <input type="text" name="gearName" placeholder="Add an individual item.">
+                    <input class="btn btn-success btn-sm ruda-font" type="submit" value="Add+">
+                  </form>
+            </div>
+            <% } %>
+            
+            <% for(let i = 0; i < gear.length; i++) { %>
+              <hr>
+              <div class="text-center">
+                <h3 class="ruda-font"><%= gear[i].gearName.toUpperCase() %></h3>
+                <% if(gear[i].status === 'unpacked'){ %>
+                  <a class="btn btn-danger btn-sm ruda-font packerBtnsWdth" href="/packIndividual/<%= trip.id %>/<%= gear[i].id %>/<%= gear[i].packer_id %>">Unpacked</a>
+                <% } else { %>
+                  <a class="btn btn-success btn-sm ruda-font packerBtnsWdth" href="/unpackIndividual/<%= trip.id %>/<%= gear[i].id %>/<%= gear[i].packer_id %>">Packed</a>
+                <% } %>
 
-    <!-- ADMIN ONLY - Add Item -->
-    <% if(trip.role === 'admin'){ %>
-    <div class="add-item-container">
-        <form class="add-item" action="/addItem/backpack/<%= trip.id %>" method="post">
-            <input type="text" name="gearName" placeholder="Add an individual item.">
-            <input class="btn btn-success" type="submit" value="Add+">
-          </form>
-    </div>
-    <% } %>
+                <!-- ADMIN ONLY - Delete Item -->
+                <% if(trip.role === 'admin'){ %>
+                  - <a class="btn btn-danger btn-sm ruda-font packerBtnsWdth" href="/deleteIndividualItem/<%= trip.id %>/<%= gear[i].id %>">Delete Item</a>
+                <% } %>
+              </div><br>
+            <% } %>
 
-
-      <% for(let i = 0; i < gear.length; i++) { %>
-        <div class="individual-item-display">
-          <h4><%= gear[i].gearName.toUpperCase() %></h4>
-          <p>Trip: <%= trip.id %></p>
-          <p>Packer: <%= gear[i].packer_id %></p>
-          <p>Type: <%= gear[i].type %></p>
-          <p class="<%= gear[i].status %>">Status: <%= gear[i].status %></p><br><br>
-          <% if(gear[i].status === 'unpacked'){ %>
-            <a class="btn btn-dark btn-sm" href="/packIndividual/<%= trip.id %>/<%= gear[i].id %>/<%= gear[i].packer_id %>">Click to pack.</a>
-          <% } else { %>
-            <a class="btn btn-dark btn-sm" href="/unpackIndividual/<%= trip.id %>/<%= gear[i].id %>/<%= gear[i].packer_id %>">Click to unpack.</a>
-          <% } %>
-
-          <!-- ADMIN ONLY - Delete Item -->
-          <% if(trip.role === 'admin'){ %>
-            <a class="btn btn-danger" href="/deleteIndividualItem/<%= trip.id %>/<%= gear[i].id %>">Remove <%= gear[i].gearName.toLowerCase() %> from list.</a>
-          <% } %>
         </div>
+<<<<<<< HEAD
       <% } %>
+=======
+      </div>
+      <div class="col-md-3"></div>
+    </div>
+
+
+>>>>>>> 9de334535014343437d73f04f1a328c86e51c081
   </body>
 </html>

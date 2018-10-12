@@ -1,16 +1,47 @@
-body{
-  margin: 1em;
+.mainImage{
+  width: 20em;
+  height: auto;
+  border: 2px;
+  border-style: double;
+  border-radius: 50px;
+  margin-top: 1em;
+  margin-bottom: 1em;
 }
 
-.splash{
-  background:url(/assets/backpack-web.jpg);
+::-webkit-scrollbar {
+  display: none;
+}
+
+.inviteImage{
+  width: 18em;
+  height: auto;
+}
+
+.backpack-background-image{
+  background:url(/assets/images/backpack-web.jpg);
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: 20%;
   background-position: center;
 }
-.ourForm {
-  background-color: green;
+
+.jumbotron{
+  width: 100%;
+}
+
+.jumbo{
+  font-weight: 900;
+  font-size: 400%;
+  font-style: oblique;
+  margin-bottom: 0.25em;
+}
+
+.lake-background-image{
+  background:url(/assets/images/lake.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100%;
+  background-position: center;
 }
 
 .add-item-container {
@@ -24,38 +55,177 @@ body{
   padding: 5px;
 }
 
-.individual-item-display{
-  border: 1px;
-  border-style: solid;
-  padding: 1em;
-  margin: 1em;
+.btn-outline-danger{
+  color: #FE431A;
+  border-color: #FE431A;
 }
 
-.community-item-display{
-  border: 1px;
-  border-style: solid;
-  padding: 1em;
-  margin: 1em;
+.btn-outline-warning{
+  color: #EBC92C;
+  border-color: #EBC92C;
 }
 
-.packed{
+.btn-outline-success{
+  color: #2F7C21;
+  border-color: #2F7C21;
+}
+
+.btn-success{
+  background-color: #2F7C21;
+}
+
+.btn-danger{
+  background-color: #FE431A;
+}
+
+.ruda-font{
+  font-family: 'Ruda', sans-serif;
+}
+.fredericka-font{
+  font-family: 'Fredericka the Great', cursive;
+}
+.skranji-font{
+  font-family: 'Skranji', cursive;
+}
+
+.remove-blue{
+  color: inherit; 
+}
+
+a:hover{
+  color: white; 
+  text-decoration:none; 
+  cursor:pointer;  
+}
+
+.navbar{
+  padding-top: 12px;
+  margin-bottom: 2em;
+}
+
+hr.style-seven {
+  overflow: visible; /* For IE */
+  height: 30px;
+  border-style: solid;
+  border-color: black;
+  border-width: 1px 0 0 0;
+  border-radius: 20px;
+}
+hr.style-seven:before { /* Not really supposed to work, but does */
+  display: block;
+  content: "";
+  height: 30px;
+  margin-top: -31px;
+  border-style: solid;
+  border-color: black;
+  border-width: 0 0 1px 0;
+  border-radius: 20px;
+}
+
+hr.style-two {
+  border: 0;
+  height: 1px;
+  background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0));
+}
+
+.mycard{
+  margin-top: 1.5em;
+  padding: 1em;
+  padding-left: 1.2em;
+  padding-right: 1.2em;
+  box-shadow: 10px 10px 5px grey;
+  border-radius: 1em;
+  background-color: #D5D1D0;
+  opacity: .95;
+}
+
+.mycard-form{
+  width: 30em;
+  margin-top: 1.5em;
+  padding: 1em;
+  padding-left: 1.2em;
+  padding-right: 1.2em;
+  padding-top: 2em;
+  box-shadow: 10px 10px 5px grey;
+  border-radius: 1em;
+  background-color: #D5D1D0;
+  opacity: .95;
+}
+
+.no-opacity{
   background-color: #008E00;
-  display: inline;
-  padding: 0.5em;
-  border-radius: 10px;
-}
-.unpacked{
-  background-color: #ED0038;
-  display: inline;
-  padding: 0.5em;
-  border-radius: 10px;
 }
 
-.float-right{
-  float: right;
+.trip-button{
+  width: 7em;
 }
 
+.container{
+  padding-top: 8em;
+  padding-bottom: 6em;
+}
 
+.bold{
+  font-weight: bolder;
+}
+
+.form-input{
+  width: 20em;
+  margin-bottom: 1.5em;
+  text-align: center;
+}
+
+.form-label{
+  text-align: center;
+}
+
+.form-button{
+  margin-bottom: 1em;
+  width: 15em;
+  text-align: center;
+}
+
+.nav-link{
+  background-color: #00A1E1;
+  margin: 5px;
+  color: white;
+  font-size: 150%;
+}
+
+.active{
+  background-color: rgb(0, 110, 153) !important;
+}
+
+.invite-form{
+  width: 15em;
+}
+
+.margin-details{
+  margin: 0.5em;
+}
+
+.myinline{
+ display: inline-block;
+}
+
+.my100{
+ width: 100%;
+}
+
+.editTripBtn{
+  width: 8em;
+ }
+
+ .packerBtnsWdth{
+   width: 15em;
+ }
+
+<<<<<<< HEAD
 
 a.btn {border-radius: .25rem; border: 1px solid transparent; padding: .5rem 1rem; color: #fff; }
 a.btn:hover { border-radius: .25rem; }
+=======
+.pill-width{
+  width: 15em;
+}
+>>>>>>> 9de334535014343437d73f04f1a328c86e51c081

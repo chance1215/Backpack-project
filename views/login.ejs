@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Backpack</title>
+  <title>Backpack - Login/Register</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- BOOSTRAP CSS -->
@@ -12,6 +12,9 @@
 
   <!-- CSS -->
   <link rel="stylesheet" type="text/css" href="/assets/style.css">
+
+  <!-- GOOGLE FONTS -->
+  <link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great|Ruda|Skranji" rel="stylesheet">
 
   <!-- Confirm password logic -->
   <script type="text/javascript" src="/assets/loginLogic.js"></script>
@@ -25,23 +28,23 @@
     crossorigin="anonymous" defer></script>
 </head>
 
-<body>
-  <div class="container">
-    <div class="row d-flex justify-content-end">
-      <a class="btn btn-dark" href="/">Back</a>
-    </div>
-    <br>
+<body class="lake-background-image">
 
-    <div class="row">
-      <div class="card" style="width: 100%;">
+    <!-- NAVIGATION -->
+    <nav class="navbar navbar-dark bg-dark fixed-top navbar">
+      <h1 class="text-white fredericka-font"><a class="remove-blue" href="/">BACKPACK</a></h1>
+      <form class="form-inline">
+        <a class="btn btn-outline-success float-right ruda-font" href="/">Back</a>&nbsp
+      </form>
+    </nav>
+    
+    <div class="container">
 
-        <div class="card-body">
-          <div class="row">
+        <div class="row">
             <div class="col-md-6">
-              <div class="card">
-                <div class="card-header text-center alert alert-primary" role="alert">
-                  <h1>Log In</h1>
-                </div>
+              <div class="card mycard">
+                  <h1 class="ruda-font text-center">Login</h1>
+                  <hr>
                 <div class="card-body">
 
                   <form class="login" action="/login" method="post">
@@ -55,16 +58,15 @@
                       <input type="password" class="form-control" name="password" placeholder="Password" required>
                     </div>
 
-                    <button type="submit" value="login" class="btn btn-primary" style="width: 100%;">Login</button>
+                    <button type="submit" value="login" class="btn btn-success" style="width: 100%;">Login</button>
                   </form>
                 </div>
               </div>
             </div>
             <div class="col-md-6">
-              <div class="card">
-                <div class="card-header text-center alert alert-success" role="alert">
-                  <h1>Register</h1>
-                </div>
+              <div class="card mycard">
+                <h1 class="ruda-font text-center">Register</h1>
+                <hr>
                 <div class="card-body">
 
                   <form class="register" action="/register" method="post">
@@ -89,18 +91,14 @@
                       <span id="message"></span>
                     </div>
 
-                    <button id="btn_register" type="submit" class="btn btn-success" style="width: 100%;" value="register">Register</button>
+                    <button id="btn_register" type="submit" class="btn btn-warning" style="width: 100%;" value="register">Register</button>
                   </form>
                 </div>
               </div>
             </div>
           </div>
 
-        </div>
-      </div>
 
-
-    </div>
   </div>
 </body>
 

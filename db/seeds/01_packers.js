@@ -5,11 +5,10 @@ exports.seed = function(knex, Promise) {
     .then(function () {
       // Inserts seed entries
       return knex('packersTable').insert([
-        { packerName: 'Michael' , email:'mike@name.com' , password:'asdf'},
-        { packerName: 'Andy' , email:'andy@name.com' , password:'asdf'},
-        { packerName: 'Chelsea' , email:'chelsea@name.com' , password:'asdf'},
-        { packerName: 'Jon' , email:'jon@name.com' , password:'asdf'}
-
+        { packerName: 'Andy Zalit' , email:'andyzalit@gmail.com' , password:'1234'},
+        { packerName: 'Chelsea Grimmett' , email:'c.grimmett@me.com' , password:'1234'},
+        { packerName: 'Jon McCarthy' , email:'jtmcc93@gmail.com' , password:'1234'},
+        { packerName: 'Michael Beamish' , email:'michaelbeamish89@gmail.com' , password:'1234'}
       ]);
     });
 };

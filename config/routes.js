@@ -21,7 +21,7 @@ module.exports = function(app) {
 
   //NEW TRIP:
   app.get("/newTrip", tripsController.newTrip);
-  app.post("/newTrip/:id", tripsController.createTrip);
+  app.post("/newTrip", tripsController.createTrip);
 
   //EDIT TRIP:
   app.get("/editTrip/:id", tripsController.editTrip);

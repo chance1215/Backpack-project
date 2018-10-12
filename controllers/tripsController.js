@@ -54,7 +54,7 @@ module.exports = {
           .join("packersTable", "packersTable.id", "packer_tripTable.packer_id")
           .then(packer_tripResults => {
             res.render("editTrip", {
-              tripsResults,
+              trip: tripsResults[0],
               packer_tripResults,
               startDate,
               endDate,

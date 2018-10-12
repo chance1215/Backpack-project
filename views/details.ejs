@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="utf-8">
-  <title>Backpack</title>
+  <title>Backpack - Trip Details</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <!-- BOOSTRAP CSS -->
@@ -12,6 +12,10 @@
 
   <!-- CSS -->
   <link rel="stylesheet" type="text/css" href="/assets/style.css">
+
+  <!-- GOOGLE FONTS -->
+  <link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great|Ruda|Skranji" rel="stylesheet">
+
 
   <!-- BOOTSTRAP SCRIPT -->
   <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
@@ -22,170 +26,142 @@
     crossorigin="anonymous" defer></script>
 </head>
 
-<body>
+<body class="lake-background-image">
+
+    <!-- NAVIGATION -->
+    <nav class="navbar navbar-dark bg-dark fixed-top navbar">
+      <h1 class="text-white fredericka-font"><a class="remove-blue" href="/">BACKPACK</a></h1>
+      <form class="form-inline">
+        <a class="btn btn-outline-success float-right ruda-font" href="/welcome">Back</a>&nbsp
+        <a class="btn btn-outline-danger ruda-font float-right" href="/logout">Logout</a>&nbsp  
+      </form>
+    </nav>
+
   <div class="container">
 
-    <h1>
-      <%= trip.tripName %>
-    </h1>
-
-    <a class="btn btn-dark" href="/welcome">Back</a>
-    <a class="btn btn-dark float-right" href="/logout">Logout</a>
-
-    <!-- Navigation between DETAILS, BACKPACK< CAMPGROUND -->
-
-    <ul class="nav nav-pills nav-fill">
-      <li class="nav-item">
-        <a class="nav-link active" href="/trip/details/<%= trip.id %>">Details</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/trip/backpack/<%= trip.id %>">Backpack</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="/trip/campground/<%= trip.id %>">Campground</a>
-      </li>
-    </ul>
-    <% if (admin.packer_id === user.id) { %>
     <div class="row">
       <div class="col-md-12">
-        <a class="btn btn-secondary" href="/editTrip/<%= trip.id %>" style="width: 100%;">Edit Trip</a>
+          <h1 class="ruda-font text-center bold"><%= trip.tripName.toUpperCase() %></h1>
+          <hr class="style-seven">
       </div>
     </div>
-    <br>
-    <br>
+    
     <div class="row">
-      <div class="col-md-9">
-        <form method="POST" action="/sendInvite/<%= trip.id %>">
-          <div class="form-group">
-            <input type="email" class="form-control" name="email" aria-describedby="email" placeholder="Enter email">
-            <small class="form-text text-muted">Invite an existing Member to a trip!</small>
-          </div>
-          <input type="hidden" name="startDate" value="<%= moment(trip.startDate).format('dddd MMM Do, YYYY') %>">
-          <input type="hidden" name="endDate" value="<%= moment(trip.endDate).format('dddd MMM Do, YYYY') %>">
-          <input type="hidden" name="name" value="<%= trip.tripName %>">
-          <input type="hidden" name="location" value="<%= trip.location %>">
-          <input type="hidden" name="description" value="<%= trip.description %>">
-          <input type="hidden" name="packerName" value="<%= user.packerName %>">
+      <div class="col-md-12 d-flex justify-content-center">
+        <!-- Navigation between DETAILS, BACKPACK< CAMPGROUND -->
+        <ul class="nav nav-pills nav-fill">
+          <li class="nav-item">
+            <a class="nav-link ruda-font active pill-width" href="/trip/details/<%= trip.id %>">Details</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link ruda-font pill-width" href="/trip/backpack/<%= trip.id %>">Backpack</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link ruda-font pill-width" href="/trip/campground/<%= trip.id %>">Campground</a>
+          </li>
+        </ul>        
       </div>
-      <div class="col-md-3"><button type="submit" class="btn btn-primary float-right" style="width: 100%;">Send Invite
-          Email</button>
+    </div><br>       
+
+    <div class="row">
+      <div class="col-md-12 d-flex justify-content-center">
+          <% if (admin.packer_id === user.id) { %>
+            <a class="btn btn-lg btn-warning ruda-font editTripBtn" href="/editTrip/<%= trip.id %>">Edit Trip</a>
+          <% } %>
       </div>
-      </form>
-    </div>
-    <% } %>
-
-
+    </div>    
 
     <br>
-    <div class="row">
-      <div class="card" style="width: 100%;">
-        <div class="card-header alert alert-secondary">
-          Backpacking Crew
-        </div>
-        <div class="card-body">
-          <ul class="list-group">
-
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-4">
+          <div class="card mycard  margin-details">
+            <h2 class="ruda-font bold text-center">Who:</h2>
+            <hr>
             <% packers.forEach(packer => { %>
-            <% if (admin.packer_id === packer.id) { %>
-            <li class="list-group-item active">
-              <%= packer.packerName %> <span class="float-right">Trip Creator</span>
-            </li>
-            <% } else { %>
-            <li class="list-group-item">
-              <%= packer.packerName %><span class="float-right">
-                <%= packer.email %></span>
-            </li>
-            <% } %>
-
+              <% if (admin.packer_id === packer.id) { %>
+                <h5 class="ruda-font">•<%= packer.packerName %><span class="float-right">(trip host)</span></h5>            
+              <% } %>
             <% }) %>
-          </ul>
+            <% packers.forEach(packer => { %>
+              <% if (admin.packer_id !== packer.id) { %>
+                <h5 class="ruda-font">•<%= packer.packerName %><span class="float-right">(packer)</span></h5>
+              <% } %>
+            <% }) %>
+            <% if (admin.packer_id === user.id) { %>
+              <hr>
+              <h5 class="ruda-font bold text-center">Invite Someone:</h5>
+              <small class="text-center">Must be existing user.</small>
+              <form class="invite-form align-self-center" method="POST" action="/sendInvite/<%= trip.id %>">
+                <input type="hidden" name="startDate" value="<%= moment(trip.startDate).format('dddd MMM Do, YYYY') %>">
+                <input type="hidden" name="endDate" value="<%= moment(trip.endDate).format('dddd MMM Do, YYYY') %>">
+                <input type="hidden" name="name" value="<%= trip.tripName %>">
+                <input type="hidden" name="location" value="<%= trip.location %>">
+                <input type="hidden" name="description" value="<%= trip.description %>">
+                <input type="hidden" name="packerName" value="<%= user.packerName %>">
+                <input type="email" class="form-control text-center" name="email" aria-describedby="email" placeholder="enter email">
+                <input type="submit" class="btn btn-lg btn-warning ruda-font my100" value="Send Invite Email">
+              </form>
+            <% } %>
+          </div>
+      </div>
+      
+      <div class="col-md-4">
+        <div class="card mycard margin-details">
+            <h2 class="ruda-font bold text-center">When:</h2>
+            <hr>
+            <h5 class="ruda-font text-center"><%= moment(trip.startDate).format('dddd MMM Do, YYYY') %></h5>
+            <h5 class="ruda-font text-center">--to--</h5>
+            <h5 class="ruda-font text-center"><%= moment(trip.endDate).format('dddd MMM Do, YYYY') %></h5>
         </div>
       </div>
-    </div>
 
+      <div class="col-md-4">
+          <div class="card mycard  margin-details">
+              <h2 class="ruda-font bold text-center">Where:</h2>
+              <hr><br>
+              <h5 class="ruda-font text-center"><%= trip.location %></h5><br>
+          </div>
+      </div>
 
-    <br>
-    <div class="row">
-      <div class="col-md-5">
-        <h4>
-          Start:
-          <%= moment(trip.startDate).format('dddd MMM Do, YYYY') %> <br>
-          End:
-          <%= moment(trip.endDate).format('dddd MMM Do, YYYY') %>
-        </h4>
-      </div>
-      <div class="col md-2">
-        <h1>|</h1>
-      </div>
-      <div class="col-md-5">
-        <h1>
-          Location:
-          <%= trip.location %>
-        </h1>
-      </div>
-    </div>
-    <br>
+    </div><br>
 
     <div class="row">
       <div class="col-md-12">
-        <div class="card">
-          <div class="card-header alert alert-secondary">
-            Trip Description
-          </div>
-          <div class="card-body">
-            <p>
-              <%= trip.description %>
-            </p>
-          </div>
+        <div class="card mycard">
+            <h2 class="ruda-font bold text-center">Details:</h2>
+            <hr>
+            <p class="ruda-font text-center"><%= trip.description %></p>
         </div>
       </div>
-    </div>
-    <br>
+    </div><br>
 
-    <!-- <h3>Template for a form:</h3>
-  <form class="ourForm" action="#" method="post">
-    <input class="btn btn-success" type="submit" value="{EXAMPLE}">
-  </form> -->
     <div class="row">
-      <div class="col-md-6">
-        <div class="card" style="width: 100%; height: 19.5em;">
-          <div class=" card-header alert alert-secondary" role="alert">
-            Trip Notes </div>
-          <div class="card-body" style="overflow-y:auto;">
-            <ul>
-              <% notes.forEach(note => { %>
-              <li>
-                <%= note.packerName %>
-                said:
-                <%= note.content %>
-                <br>
-                <small>
-                  <%= moment(note.created_at).format('dddd MMM Do, YYYY') %></small>
-                </p>
-
-              </li>
+      <div class="col-md-12">
+        <div class="card mycard">
+            <h2 class="ruda-font bold text-center">Notes:</h2>
+            <hr>
+            <% notes.forEach(note => { %>
+              <p class="ruda-font"><%= moment(note.created_at).format('dddd MMM Do, YYYY') %></p>
+              <p class="ruda-font"><b><%= note.packerName %></b> said:</p>
+              <p class="ruda-font"><i>"<%= note.content %>"</i></p>
               <hr>
-              <% }) %>
-
-            </ul>
-          </div>
+            <% }) %>
+            <h2 class="ruda-font bold text-center">Add A Note:</h2>
+            <hr>
+            <form action="/notes/create/<%= trip.id %>/<%= user.id %>" method="post">
+              <div class="form-group">
+                <textarea class="form-control " name="content" rows="10"></textarea>
+              </div>
+              <div class="d-flex justify-content-center">
+                  <button type="submit" class="btn btn-lg btn-warning ruda-font">Submit Note</button>
+              </div>
+            </form>
         </div>
       </div>
-      <div class="
-          col-md-6">
-        <form action="/notes/create/<%= trip.id %>/<%= user.id %>" method="post">
-          <div class="form-group">
-            <textarea class="form-control" name="content" rows="10"></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary mb-2 float-right" style="width: 100%;">Add Note</button>
-        </form>
-      </div>
     </div>
-    <br>
-
-
 
   </div>
+
 </body>
 
 </html>
