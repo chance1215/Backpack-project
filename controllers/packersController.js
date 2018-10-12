@@ -48,7 +48,10 @@ module.exports = {
         password: req.body.password
       }, "*")
       .then((newPackerResults) => {
-        res.redirect('/login');
+        req.session.packer_id = newPackerResults[0].id;
+        req.session.save(()=>{
+          res.redirect('/welcome');
+        })
       })
       .catch(error => {
         console.error(error);

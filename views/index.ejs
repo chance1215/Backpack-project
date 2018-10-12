@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Backpack</title>
+    <title>Backpack - Home</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <!-- BOOSTRAP CSS -->
@@ -11,25 +11,53 @@
     <!-- CSS -->
     <link rel="stylesheet" type="text/css" href="/assets/style.css">
 
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Fredericka+the+Great|Ruda|Skranji" rel="stylesheet">
+
     <!-- BOOTSTRAP SCRIPT -->
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous" defer></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous" defer></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js" integrity="sha384-pjaaA8dDz/5BgdFUPX6M/9SUZv4d12SUPF0axWc+VRZkx5xU3daN+lYb49+Ax+Tl" crossorigin="anonymous" defer></script>
   </head>
-  <body class="splash">
-        <div class="row">
-            <div class="col-lg">
-              <div class="w-100"></div>
-          <h1>BACKPACK</h1>
+  <body class="lake-background-image">
+    
+    <!-- NAVIGATION -->
+    <nav class="navbar navbar-dark bg-dark fixed-top navbar">
+      <h1 class="text-white fredericka-font"><a class="remove-blue" href="/">BACKPACK</a></h1>
+      <form class="form-inline">
+      <!-- CHECKS IF USER IS LOGGED IN OR OUT AND DISPLAYS THE APPROPRIATE BUTTONS -->
+      <% if(status === 'loggedOut'){ %>
+        <a class="btn btn-outline-success float-right ruda-font" href="/login">Login/Register</a>
+      <% } else { %>
+        <a class="btn btn-outline-success ruda-font" href="/welcome">View Your Trips</a>&nbsp
+        <a class="btn btn-outline-danger ruda-font float-right" href="/logout">Logout</a>
+      <% } %>        
+      </form>
+    </nav>
 
-          <!-- CHECKS IF USER IS LOGGED IN OR OUT AND DISPLAYS THE APPROPRIATE BUTTONS -->
-          <% if(status === 'loggedOut'){ %>
-            <a class="btn btn-dark float-right" href="/login">Login/Register</a>
-          <% } else { %>
-            <a class="btn btn-dark" href="/welcome">View Your Trips</a>
-            <a class="btn btn-dark float-right" href="/logout">Logout</a>
-          <% } %>
+    <!-- CONTENT -->
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-12">
+          <div class="card mycard">
+            <h1 class="ruda-font">Our Story:</h1>
+            <hr>
+            <div class="row">
+              <div class="col-md-4 text-center">
+                  <img class="mainImage" src="/assets/images/backpacker2.jpg" alt="backpack">
+              </div>
+              <div class="col-md-8">
+                <br>
+                  <h4 class="ruda-font">About:</h4>
+                  <p class="ruda-font">Lorem, ipsum dolor sit amet consectetur. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit laborum cum, nulla, voluptatibus nisi sed deleniti ad magnam tenetur molestias quas? Necessitatibus blanditiis quam ullam tenetur, atque laboriosam nam dolore. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit laborum cum, nulla, voluptatibus nisi sed deleniti ad magnam tenetur molestias quas? Necessitatibus blanditiis quam ullam tenetur, atque laboriosam nam dolore. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Odit laborum cum, nulla, voluptatibus nisi sed deleniti ad magnam tenetur molestias quas? Necessitatibus blanditiis quam ullam tenetur, atque laboriosam nam dolore.</p>
+              </div>
+            </div>
+          </div>
         </div>
-        </div>
+      </div>
+
+    </div>
+        
   </body>
 </html>
