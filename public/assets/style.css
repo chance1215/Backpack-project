@@ -42,7 +42,7 @@
   background-attachment: fixed;
   background-size: 100%;
   background-position: center;
-  
+
 }
 
 .add-item-container {
@@ -67,8 +67,8 @@
 }
 
 .btn-outline-success{
-  color: #2F7C21;
-  border-color: #2F7C21;
+  color: #dae832;
+  border-color:#21227c;
 }
 
 .btn-success{
@@ -90,13 +90,13 @@
 }
 
 .remove-blue{
-  color: inherit; 
+  color: inherit;
 }
 
 a:hover{
-  color: white; 
-  text-decoration:none; 
-  cursor:pointer;  
+  color: white;
+  text-decoration:none;
+  cursor:pointer;
 }
 
 .navbar{
